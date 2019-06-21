@@ -1,6 +1,8 @@
 export const theme = {
-  layout: {
-    bodyBg: '#F7F7F7',
-    headerBg: '#454545'
+  bodyBg: '#F7F7F7',
+  header: {
+    bg: '#454545',
+    color: '#cecece',
+    hoverColor: '#fcfcfc'
   }
 };

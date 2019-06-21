@@ -5,6 +5,7 @@ import { theme } from './theme';
 import * as S from './styled';
 import { Header } from './Header';
 import { NewDse } from '../screens';
+import { Container } from 'semantic-ui-react';
 
 import 'semantic-ui-css/semantic.min.css';
 
