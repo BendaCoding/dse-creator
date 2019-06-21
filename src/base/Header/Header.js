@@ -7,12 +7,13 @@ export const Header = () => (
   <S.Wrap>
     <S.Header>DSE Creator</S.Header>
     <div>
-      <S.NavLink to="/admin">
+      <S.NavLink to="/admin/snippets">
+        <Icon name="setting" />
         <label>Admin</label>
-        <Icon name="settings" />
       </S.NavLink>
       <S.NavLink exact to="/">
-        Neue DSE
+        <Icon name="add" />
+        <label>Neue DSE</label>
       </S.NavLink>
     </div>
   </S.Wrap>

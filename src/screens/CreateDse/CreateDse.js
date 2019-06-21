@@ -3,7 +3,7 @@ import { Box, Flex } from 'rebass';
 import { Input, Checkbox } from '../../components';
 import { Button } from 'semantic-ui-react';
 
-export const NewDse = () => (
+export const CreateDse = () => (
   <Flex justifyContent="center">
     <Box width={1 / 2}>
       <h3>Auftraggeber</h3>

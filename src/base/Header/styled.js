@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { NavLink as BaseNavLink } from 'react-router-dom';
-import { Icon } from 'semantic-ui-react';
 
 const HEADER_HEIGHT = '70px';
 
@@ -31,6 +30,6 @@ export const NavLink = styled(BaseNavLink)`
   }
 
   label {
-    margin-right: 5px;
+    margin-left: 3px;
   }
 `;
