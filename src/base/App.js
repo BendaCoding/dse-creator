@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { theme } from './theme';
 import * as S from './styled';
 import { Header } from './Header';
-import { CreateDse, Admin } from '../screens';
+import { Home, CreateDse, Admin } from '../screens';
 
 import 'semantic-ui-css/semantic.min.css';
 
@@ -16,7 +16,8 @@ export const App = () => (
         <Header>DSE Creator</Header>
         <S.Content>
           <Switch>
-            <Route exact path="/" component={CreateDse} />
+            <Route exact path="/" component={Home} />
+            <Route path="/create" component={CreateDse} />
             <Route path="/admin" component={Admin} />
           </Switch>
         </S.Content>
