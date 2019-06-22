@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab } from 'semantic-ui-react';
-import { Icon, Label, Menu, Table } from 'semantic-ui-react';
+import { Icon, Menu, Table } from 'semantic-ui-react';
 
 export const Snippets = () => (
   <Tab.Pane>

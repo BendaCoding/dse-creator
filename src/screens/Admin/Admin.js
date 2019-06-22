@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Container } from '../../components';
-import { Menu, Segment } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import { Arrangement } from './Arrangement';
 import { Snippets } from './Snippets';
 import { withRouter } from 'react-router';
