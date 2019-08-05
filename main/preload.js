@@ -1,1 +1,1 @@
-window.ipcRenderer = require('electron').ipcRenderer;
+window.ipc = require('electron').ipcRenderer;

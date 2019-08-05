@@ -16,13 +16,16 @@ let mainWindow;
 const store = new Store({
   configName: 'dseCreator',
   defaults: {
-    windowBounds: { width: 1280, height: 1080 }
+    windowBounds: { width: 1280, height: 1080 },
+    data: {
+      sections: ['Intro', 'Tools', 'Post Scriptum']
+    }
   }
 });
 
 function createWindow() {
   const { width, height } = store.get('windowBounds');
-  console.log('init with', width, height);
+
   mainWindow = new BrowserWindow({
     width,
     height,
@@ -43,7 +46,9 @@ function createWindow() {
       ? 'http://localhost:3000'
       : `file://${path.join(__dirname, '../build/index.html')}`
   );
+
   mainWindow.webContents.openDevTools();
+
   mainWindow.on('closed', () => (mainWindow = null));
 }
 
@@ -72,4 +77,10 @@ ipcMain.on('select-file', event => {
       });
     }
   });
+});
+
+ipcMain.on('REQUEST_DATA', event => {
+  const data = store.get('data');
+  console.log('hydrate it');
+  event.sender.send('HYDRATE_APP', data);
 });
