@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "UNLICENCED",
-  "main": "public/main.js",
+  "main": "main/main.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -3,7 +3,7 @@ import * as S from './styled';
 import { Button } from 'semantic-ui-react';
 
 export const Home = () => {
-  const openFile = () => console.log('open');
+  const openFile = () => window.ipcRenderer.send('select-file');
 
   return (
     <S.Centered>
