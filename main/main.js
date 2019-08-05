@@ -9,17 +9,35 @@ const url = require('url');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
 
+const Store = require('electron-store');
+
 let mainWindow;
 
+const store = new Store({
+  configName: 'dseCreator',
+  defaults: {
+    windowBounds: { width: 1280, height: 1080 }
+  }
+});
+
 function createWindow() {
+  const { width, height } = store.get('windowBounds');
+  console.log('init with', width, height);
   mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 1080,
+    width,
+    height,
     webPreferences: {
       nodeIntegration: false,
       preload: __dirname + '/preload.js'
     }
   });
+
+  mainWindow.on('resize', () => {
+    let { width, height } = mainWindow.getBounds();
+    console.log('save new size', width, height);
+    store.set('windowBounds', { width, height });
+  });
+
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
@@ -28,19 +46,6 @@ function createWindow() {
   mainWindow.webContents.openDevTools();
   mainWindow.on('closed', () => (mainWindow = null));
 }
-
-ipcMain.on('select-file', event => {
-  dialog.showOpenDialog(mainWindow, {}, filePaths => {
-    console.log('file selected');
-
-    if (filePaths) {
-      fs.readFile(filePaths[0], 'utf-8', (error, data) => {
-        const db = JSON.parse(data);
-        mainWindow.send('SEND_DB', db);
-      });
-    }
-  });
-});
 
 app.on('ready', createWindow);
 
@@ -54,4 +59,17 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on('select-file', event => {
+  dialog.showOpenDialog(mainWindow, {}, filePaths => {
+    console.log('file selected');
+
+    if (filePaths) {
+      fs.readFile(filePaths[0], 'utf-8', (error, data) => {
+        const db = JSON.parse(data);
+        mainWindow.send('SEND_DB', db);
+      });
+    }
+  });
 });
