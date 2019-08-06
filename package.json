@@ -33,10 +33,13 @@
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.5",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "rebass": "^3.1.1",
+    "redux": "^4.0.4",
+    "reselect": "^4.0.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.2",
     "styled-components": "^4.3.2"
@@ -45,6 +48,7 @@
     "concurrently": "^4.1.0",
     "electron": "^5.0.4",
     "electron-builder": "^20.44.4",
+    "electron-devtools-installer": "^2.2.4",
     "wait-on": "^3.2.0"
   }
 }

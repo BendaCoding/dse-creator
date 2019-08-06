@@ -11,14 +11,22 @@ const fs = require('fs');
 
 const Store = require('electron-store');
 
+const {
+  default: installExtension,
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS
+} = require('electron-devtools-installer');
+
 let mainWindow;
 
 const store = new Store({
   configName: 'dseCreator',
   defaults: {
     windowBounds: { width: 1280, height: 1080 },
-    data: {
-      sections: ['Intro', 'Tools', 'Post Scriptum']
+    store: {
+      arrangement: {
+        sections: ['Intro', 'Tools', 'Post Scriptum']
+      }
     }
   }
 });
@@ -49,6 +57,9 @@ function createWindow() {
 
   mainWindow.webContents.openDevTools();
 
+  installExtension(REACT_DEVELOPER_TOOLS);
+  installExtension(REDUX_DEVTOOLS);
+
   mainWindow.on('closed', () => (mainWindow = null));
 }
 
@@ -66,21 +77,21 @@ app.on('activate', () => {
   }
 });
 
-ipcMain.on('select-file', event => {
-  dialog.showOpenDialog(mainWindow, {}, filePaths => {
-    console.log('file selected');
+// ipcMain.on('select-file', event => {
+//   dialog.showOpenDialog(mainWindow, {}, filePaths => {
+//     console.log('file selected');
 
-    if (filePaths) {
-      fs.readFile(filePaths[0], 'utf-8', (error, data) => {
-        const db = JSON.parse(data);
-        mainWindow.send('SEND_DB', db);
-      });
-    }
-  });
-});
+//     if (filePaths) {
+//       fs.readFile(filePaths[0], 'utf-8', (error, data) => {
+//         const db = JSON.parse(data);
+//         mainWindow.send('SEND_DB', db);
+//       });
+//     }
+//   });
+// });
 
 ipcMain.on('REQUEST_DATA', event => {
-  const data = store.get('data');
+  const data = store.get('store');
   console.log('hydrate it');
   event.sender.send('HYDRATE_APP', data);
 });
