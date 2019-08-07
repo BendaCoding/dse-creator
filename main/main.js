@@ -9,27 +9,15 @@ const url = require('url');
 const isDev = require('electron-is-dev');
 const fs = require('fs');
 
-const Store = require('electron-store');
-
 const {
   default: installExtension,
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS
 } = require('electron-devtools-installer');
 
-let mainWindow;
+const store = require('./store');
 
-const store = new Store({
-  configName: 'dseCreator',
-  defaults: {
-    windowBounds: { width: 1280, height: 1080 },
-    store: {
-      arrangement: {
-        sections: ['Intro', 'Tools', 'Post Scriptum']
-      }
-    }
-  }
-});
+let mainWindow;
 
 function createWindow() {
   const { width, height } = store.get('windowBounds');
@@ -45,7 +33,6 @@ function createWindow() {
 
   mainWindow.on('resize', () => {
     let { width, height } = mainWindow.getBounds();
-    console.log('save new size', width, height);
     store.set('windowBounds', { width, height });
   });
 
@@ -55,10 +42,10 @@ function createWindow() {
       : `file://${path.join(__dirname, '../build/index.html')}`
   );
 
-  mainWindow.webContents.openDevTools();
-
   installExtension(REACT_DEVELOPER_TOOLS);
   installExtension(REDUX_DEVTOOLS);
+
+  mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', () => (mainWindow = null));
 }

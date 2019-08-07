@@ -1,22 +1,26 @@
-import React from 'react';
-import { Button, Tab } from 'semantic-ui-react';
-import { useDispatch } from 'react-redux';
-import { actions } from '../../../store/arrangement';
-
-// import { Box, Flex } from 'rebass';
+import React, { useState } from 'react';
+import { Modal, Header, Icon, Button, Tab } from 'semantic-ui-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions, selectors } from '../../../store/arrangement';
+import { Section } from './Section';
+import { Box } from 'rebass';
 
 export const Arrangement = () => {
   const dispatch = useDispatch();
+  const sections = useSelector(selectors.getSections);
 
   return (
     <Tab.Pane>
-      <Button
-        primary
-        onClick={() => dispatch(actions.addGroup({ name: 'asd', id: '1' }))}
-      >
-        Gruppe erstellen
+      <Button primary>Gruppe erstellen</Button>
+      <Button onClick={() => dispatch(actions.addSection({ name: 'asd' }))}>
+        Sektion erstellen
       </Button>
-      <Button>Sektion erstellen</Button>
+
+      <Box mt={3}>
+        {sections.map((section, index) => (
+          <Section key={section.name} {...section} index={index} />
+        ))}
+      </Box>
     </Tab.Pane>
   );
 };

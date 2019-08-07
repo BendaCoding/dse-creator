@@ -7,14 +7,11 @@ export const initialState = {
 export const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case TYPES.ADD_SECTION: {
-      const addAtIndex = payload.index || state.sections.length;
-
       return {
         ...state,
         sections: [
-          ...state.sections.slice(0, addAtIndex),
-          { name: payload.name, groups: [] },
-          ...state.sections.slice(addAtIndex)
+          ...state.sections,
+          { name: `Sektion ${state.sections.length + 1}`, groups: [] }
         ]
       };
     }
@@ -28,21 +25,17 @@ export const reducer = (state = initialState, { type, payload }) => {
       };
     }
     case TYPES.ADD_GROUP: {
-      const {
-        sectionIndex,
-        groupIndex = state.sections[sectionIndex].length
-      } = payload;
+      const { sectionIndex } = payload;
+      const section = state.sections[sectionIndex];
 
       return {
         ...state,
         sections: [
           ...state.sections.slice(0, sectionIndex),
           {
-            ...state.sections[sectionIndex],
-            groups: [
-              
-            ]
-          }
+            ...section,
+            groups: [...section.groups, payload.group]
+          },
           ...state.sections.slice(sectionIndex)
         ]
       };
