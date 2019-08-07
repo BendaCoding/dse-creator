@@ -19,37 +19,6 @@ const store = require('./store');
 
 let mainWindow;
 
-function createWindow() {
-  const { width, height } = store.get('windowBounds');
-
-  mainWindow = new BrowserWindow({
-    width,
-    height,
-    webPreferences: {
-      nodeIntegration: false,
-      preload: __dirname + '/preload.js'
-    }
-  });
-
-  mainWindow.on('resize', () => {
-    let { width, height } = mainWindow.getBounds();
-    store.set('windowBounds', { width, height });
-  });
-
-  mainWindow.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
-  );
-
-  installExtension(REACT_DEVELOPER_TOOLS);
-  installExtension(REDUX_DEVTOOLS);
-
-  mainWindow.webContents.openDevTools();
-
-  mainWindow.on('closed', () => (mainWindow = null));
-}
-
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
@@ -79,6 +48,48 @@ app.on('activate', () => {
 
 ipcMain.on('REQUEST_DATA', event => {
   const data = store.get('store');
-  console.log('hydrate it');
+  console.log('Hydrate App from file storage');
   event.sender.send('HYDRATE_APP', data);
 });
+
+function createWindow() {
+  const { width, height } = store.get('windowBounds');
+
+  mainWindow = new BrowserWindow({
+    width,
+    height,
+    webPreferences: {
+      nodeIntegration: false,
+      preload: __dirname + '/preload.js'
+    }
+  });
+
+  mainWindow.on('resize', () => {
+    let { width, height } = mainWindow.getBounds();
+    store.set('windowBounds', { width, height });
+  });
+
+  installExtentions();
+
+  mainWindow.loadURL(
+    isDev
+      ? 'http://localhost:3000'
+      : `file://${path.join(__dirname, '../build/index.html')}`
+  );
+
+  mainWindow.on('closed', () => (mainWindow = null));
+}
+
+function installExtentions() {
+  if (process.env.NODE_ENV === 'dev') {
+    mainWindow.webContents.openDevTools();
+
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log('An error occurred: ', err));
+
+    installExtension(REDUX_DEVTOOLS)
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log('An error occurred: ', err));
+  }
+}
