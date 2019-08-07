@@ -15,8 +15,8 @@ export const Section = ({ name, groups, index: sectionIndex }) => {
             <Icon link name="add" onClick={() => setIsModalOpen(true)} />
           </Flex>
         </Header>
-        {groups.map(group => (
-          <Segment attached>{group}</Segment>
+        {groups.map(({ name }) => (
+          <Segment attached>{name}</Segment>
         ))}
       </Box>
       <AddGroupModal {...{ isModalOpen, onCloseModal, sectionIndex }} />

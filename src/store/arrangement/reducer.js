@@ -34,9 +34,9 @@ export const reducer = (state = initialState, { type, payload }) => {
           ...state.sections.slice(0, sectionIndex),
           {
             ...section,
-            groups: [...section.groups, payload.group]
+            groups: [...section.groups, { name: payload.name }]
           },
-          ...state.sections.slice(sectionIndex)
+          ...state.sections.slice(sectionIndex + 1)
         ]
       };
     }

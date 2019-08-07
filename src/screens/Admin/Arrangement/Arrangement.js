@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, Header, Icon, Button, Tab } from 'semantic-ui-react';
+import React from 'react';
+import { Button, Tab } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, selectors } from '../../../store/arrangement';
 import { Section } from './Section';
