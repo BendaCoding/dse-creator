@@ -1,4 +1,5 @@
 import * as TYPES from './actionTypes';
+import findIndex from 'lodash/fp';
 
 export const initialState = {
   sections: []
@@ -9,23 +10,33 @@ export const reducer = (state = initialState, { type, payload }) => {
     case TYPES.ADD_SECTION: {
       return {
         ...state,
-        sections: [
-          ...state.sections,
-          { name: `Sektion ${state.sections.length + 1}`, groups: [] }
-        ]
+        sections: [...state.sections, { ...payload, groups: [] }]
       };
     }
     case TYPES.REMOVE_SECTION: {
+      const id = payload;
       return {
         ...state,
         sections: [
-          ...state.sections.slice(0, payload.index),
-          ...state.sections.slice(payload.index + 1)
+          ...state.sections.slice(0, id),
+          ...state.sections.slice(id + 1)
         ]
       };
     }
+    case TYPES.REORDER_SECTION: {
+      const { from, to } = payload;
+
+      const sections = state.sections.slice();
+      const [removed] = sections.splice(from, 1);
+      sections.splice(to, 0, removed);
+
+      return {
+        ...state,
+        sections
+      };
+    }
     case TYPES.ADD_GROUP: {
-      const { sectionIndex } = payload;
+      const { sectionIndex, ...rest } = payload;
       const section = state.sections[sectionIndex];
 
       return {
@@ -34,19 +45,37 @@ export const reducer = (state = initialState, { type, payload }) => {
           ...state.sections.slice(0, sectionIndex),
           {
             ...section,
-            groups: [...section.groups, { name: payload.name }]
+            groups: [...section.groups, { ...rest }]
           },
           ...state.sections.slice(sectionIndex + 1)
         ]
       };
     }
     case TYPES.REMOVE_GROUP: {
+      const id = payload;
       return {
         ...state,
         sections: [
-          ...state.sections.slice(0, payload.index),
-          ...state.sections.slice(payload.index + 1)
+          ...state.sections.slice(0, id),
+          ...state.sections.slice(id + 1)
         ]
+      };
+    }
+    case TYPES.REORDER_GROUP: {
+      const { from, to } = payload;
+      const result = state.sections.slice();
+
+      const fromSectionIndex = result.findIndex(
+        ({ id }) => id === from.sectionId
+      );
+      const toSectionIndex = result.findIndex(({ id }) => id === to.sectionId);
+      console.log(fromSectionIndex, result[fromSectionIndex]);
+      const [removed] = result[fromSectionIndex].groups.splice(from.index, 1);
+      result[toSectionIndex].groups.splice(to.index, 0, removed);
+
+      return {
+        ...state,
+        sections: result
       };
     }
     case 'HYDRATE_STORE': {

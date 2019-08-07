@@ -1,26 +1,26 @@
 import React from 'react';
 import { Button, Tab } from 'semantic-ui-react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions, selectors } from '../../../store/arrangement';
-import { Section } from './Section';
-import { Box } from 'rebass';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../store/arrangement';
+import { SectionList } from './SectionList';
+
+const uuid = require('uuid/v4');
 
 export const Arrangement = () => {
   const dispatch = useDispatch();
-  const sections = useSelector(selectors.getSections);
 
   return (
     <Tab.Pane>
       <Button primary>Gruppe erstellen</Button>
-      <Button onClick={() => dispatch(actions.addSection({ name: 'asd' }))}>
+      <Button
+        onClick={() =>
+          dispatch(actions.addSection({ name: 'asd', id: uuid() }))
+        }
+      >
         Sektion erstellen
       </Button>
 
-      <Box mt={3}>
-        {sections.map((section, index) => (
-          <Section key={section.name} {...section} index={index} />
-        ))}
-      </Box>
+      <SectionList />
     </Tab.Pane>
   );
 };

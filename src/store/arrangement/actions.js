@@ -1,21 +1,18 @@
 import * as TYPES from './actionTypes';
 
-export const addSection = payload => ({
-  type: TYPES.ADD_SECTION,
+const createAction = type => payload => ({
+  type,
   payload
 });
 
-export const removeSection = id => ({
-  type: TYPES.REMOVE_SECTION,
-  payload: id
-});
+export const addSection = createAction(TYPES.ADD_SECTION);
 
-export const addGroup = payload => ({
-  type: TYPES.ADD_GROUP,
-  payload
-});
+export const removeSection = createAction(TYPES.REMOVE_SECTION);
 
-export const removeGroup = id => ({
-  type: TYPES.REMOVE_GROUP,
-  payload: id
-});
+export const reorderSection = createAction(TYPES.REORDER_SECTION);
+
+export const addGroup = createAction(TYPES.ADD_GROUP);
+
+export const removeGroup = createAction(TYPES.REMOVE_GROUP);
+
+export const reorderGroup = createAction(TYPES.REORDER_GROUP);
