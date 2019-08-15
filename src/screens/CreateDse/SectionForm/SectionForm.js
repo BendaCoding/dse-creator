@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { Tab } from 'semantic-ui-react';
 import filter from 'lodash/fp/filter';
+import { Checkbox } from '@@components';
 
 export const SectionForm = ({ name, snippets }) => {
   const memoizedFilter = useCallback(
@@ -14,7 +15,11 @@ export const SectionForm = ({ name, snippets }) => {
       <h3>{name}</h3>
       <Tab.Pane>
         {filteredSnippets.map(snippet => (
-          <div key={snippet.id}>{snippet.name}</div>
+          <Checkbox
+            key={snippet.id}
+            checked={snippet.defaultOn}
+            label={snippet.name}
+          />
         ))}
       </Tab.Pane>
     </>

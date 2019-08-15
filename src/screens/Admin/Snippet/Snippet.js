@@ -17,10 +17,10 @@ export const Snippet = ({ history, match: { params } }) => {
       title: '',
       text: '',
       alwaysShow: false,
+      defaultOn: true,
       ...snippet
     },
     values => {
-      console.log('params', params);
       dispatch(actions.editSnippet({ ...params, snippet: { ...values } }));
       history.push('/admin');
     }
@@ -60,6 +60,18 @@ export const Snippet = ({ history, match: { params } }) => {
               label="Immer anzeigen"
               name="alwaysShow"
               checked={values.alwaysShow}
+              onChange={handleChange}
+            />
+          }
+        />
+        <Popup
+          content="Soll der Baustein für neue DSE's standardmäßig selektiert sein?"
+          trigger={
+            <Checkbox
+              label="Standardmäßig selektiert"
+              name="defaultOn"
+              disabled={values.alwaysShow}
+              checked={values.alwaysShow || values.defaultOn}
               onChange={handleChange}
             />
           }
