@@ -7,3 +7,12 @@ export const Wrap = styled.div`
     }
   }
 `;
+
+export const Link = styled.span`
+  cursor: pointer;
+  transition: 190ms color ease-in;
+
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+  }
+`;

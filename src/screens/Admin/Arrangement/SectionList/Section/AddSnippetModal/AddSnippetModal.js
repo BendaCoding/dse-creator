@@ -5,12 +5,16 @@ import { actions } from '../../../../../../store/arrangement';
 import { Input } from '../../../../../../components/Input/Input';
 import uuid from 'uuid/v4';
 
-export const AddGroupModal = ({ isModalOpen, onCloseModal, sectionIndex }) => {
+export const AddSnippetModal = ({
+  isModalOpen,
+  onCloseModal,
+  sectionIndex
+}) => {
   const [name, setName] = useState('');
   const dispatch = useDispatch();
 
-  const onAddGroup = () => {
-    dispatch(actions.addGroup({ sectionIndex, name, id: uuid() }));
+  const onAddSnippet = () => {
+    dispatch(actions.addSnippet({ sectionIndex, name, id: uuid() }));
     setName('');
     onCloseModal();
   };
@@ -23,8 +27,8 @@ export const AddGroupModal = ({ isModalOpen, onCloseModal, sectionIndex }) => {
         <Input value={name} onChange={e => setName(e.target.value)} />
       </Modal.Content>
       <Modal.Actions>
-        <Button color="green" onClick={onAddGroup} inverted>
-          <Icon name="checkmark" /> Add Group
+        <Button color="green" onClick={onAddSnippet} inverted>
+          <Icon name="checkmark" /> Add Snippet
         </Button>
       </Modal.Actions>
     </Modal>

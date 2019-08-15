@@ -1,9 +1,15 @@
 import React from 'react';
 import { Segment } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
+import { withRouter } from 'react-router';
+
 import * as S from './styled';
 
-export const Group = ({ id, name, index }) => {
+export const Snippet = ({ sectionId, id, name, index, history }) => {
+  console.log(`/admin/${sectionId}/${id}`);
+
+  const onSnippetClick = () => history.push(`/admin/${sectionId}/${id}`);
+
   return (
     <S.Wrap>
       <Draggable draggableId={id} index={index}>
@@ -13,10 +19,14 @@ export const Group = ({ id, name, index }) => {
             ref={innerRef}
             {...{ ...draggableProps, ...dragHandleProps }}
           >
-            <Segment attached>{name}</Segment>
+            <Segment attached>
+              <S.Link onClick={onSnippetClick}>{name}</S.Link>
+            </Segment>
           </div>
         )}
       </Draggable>
     </S.Wrap>
   );
 };
+
+export default withRouter(Snippet);

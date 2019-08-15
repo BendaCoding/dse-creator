@@ -26,16 +26,16 @@ export const SectionList = () => {
       dispatch(
         actions.reorderSection({ from: source.index, to: destination.index })
       );
-    } else if (type === DRAG_TYPES.GROUP) {
+    } else if (type === DRAG_TYPES.SNIPPET) {
       dispatch(
-        actions.reorderGroup({
+        actions.reorderSnippet({
           from: { index: source.index, sectionId: source.droppableId },
           to: { index: destination.index, sectionId: destination.droppableId }
         })
       );
     }
   };
-
+  console.log(sections);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Box mt={3}>

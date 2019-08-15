@@ -1,18 +1,16 @@
 import * as TYPES from './actionTypes';
+import * as U from '../utils';
 
-const createAction = type => payload => ({
-  type,
-  payload
-});
+export const addSection = U.createAction(TYPES.ADD_SECTION);
 
-export const addSection = createAction(TYPES.ADD_SECTION);
+export const removeSection = U.createAction(TYPES.REMOVE_SECTION);
 
-export const removeSection = createAction(TYPES.REMOVE_SECTION);
+export const reorderSection = U.createAction(TYPES.REORDER_SECTION);
 
-export const reorderSection = createAction(TYPES.REORDER_SECTION);
+export const addSnippet = U.createAction(TYPES.ADD_SNIPPET);
 
-export const addGroup = createAction(TYPES.ADD_GROUP);
+export const removeSnippet = U.createAction(TYPES.REMOVE_SNIPPET);
 
-export const removeGroup = createAction(TYPES.REMOVE_GROUP);
+export const reorderSnippet = U.createAction(TYPES.REORDER_SNIPPET);
 
-export const reorderGroup = createAction(TYPES.REORDER_GROUP);
+export const editSnippet = U.createAction(TYPES.EDIT_SNIPPET);

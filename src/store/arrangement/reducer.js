@@ -1,4 +1,5 @@
 import * as TYPES from './actionTypes';
+import set from 'lodash/fp/set';
 
 export const initialState = {
   sections: []
@@ -9,7 +10,7 @@ export const reducer = (state = initialState, { type, payload }) => {
     case TYPES.ADD_SECTION: {
       return {
         ...state,
-        sections: [...state.sections, { ...payload, groups: [] }]
+        sections: [...state.sections, { ...payload, snippets: [] }]
       };
     }
     case TYPES.REMOVE_SECTION: {
@@ -34,7 +35,7 @@ export const reducer = (state = initialState, { type, payload }) => {
         sections
       };
     }
-    case TYPES.ADD_GROUP: {
+    case TYPES.ADD_SNIPPET: {
       const { sectionIndex, ...rest } = payload;
       const section = state.sections[sectionIndex];
 
@@ -44,13 +45,13 @@ export const reducer = (state = initialState, { type, payload }) => {
           ...state.sections.slice(0, sectionIndex),
           {
             ...section,
-            groups: [...section.groups, { ...rest }]
+            snippets: [...section.groups, { ...rest }]
           },
           ...state.sections.slice(sectionIndex + 1)
         ]
       };
     }
-    case TYPES.REMOVE_GROUP: {
+    case TYPES.REMOVE_SNIPPET: {
       const id = payload;
       return {
         ...state,
@@ -60,7 +61,7 @@ export const reducer = (state = initialState, { type, payload }) => {
         ]
       };
     }
-    case TYPES.REORDER_GROUP: {
+    case TYPES.REORDER_SNIPPET: {
       const { from, to } = payload;
       const result = state.sections.slice();
 
@@ -68,14 +69,28 @@ export const reducer = (state = initialState, { type, payload }) => {
         ({ id }) => id === from.sectionId
       );
       const toSectionIndex = result.findIndex(({ id }) => id === to.sectionId);
-      console.log(fromSectionIndex, result[fromSectionIndex]);
-      const [removed] = result[fromSectionIndex].groups.splice(from.index, 1);
-      result[toSectionIndex].groups.splice(to.index, 0, removed);
+      const [removed] = result[fromSectionIndex].snippets.splice(from.index, 1);
+      result[toSectionIndex].snippets.splice(to.index, 0, removed);
 
       return {
         ...state,
         sections: result
       };
+    }
+    case TYPES.EDIT_SNIPPET: {
+      const { sectionId, snippetId, snippet } = payload;
+      const { sections } = state;
+
+      const sectionIndex = sections.findIndex(({ id }) => id === sectionId);
+      const snippetIndex = sections[sectionIndex].snippets.findIndex(
+        ({ id }) => id === snippetId
+      );
+
+      return set(
+        `sections[${sectionIndex}].snippets[${snippetIndex}]`,
+        snippet,
+        state
+      );
     }
     case 'HYDRATE_STORE': {
       return payload.arrangement;

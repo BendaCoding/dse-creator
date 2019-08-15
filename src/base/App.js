@@ -20,8 +20,8 @@ export const App = () => {
     window.ipc.send(IPC_EVENTS.REQUEST_STATE);
     window.ipc.on(IPC_EVENTS.HYDRATE_STATE, (event, payload) => {
       console.log('Received Store data');
-      setIsLoading(false);
       store.dispatch({ type: 'HYDRATE_STORE', payload });
+      setIsLoading(false);
     });
   }, []);
 

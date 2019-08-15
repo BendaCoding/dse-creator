@@ -4,5 +4,6 @@ export const theme = {
     bg: '#454545',
     color: '#cecece',
     hoverColor: '#fcfcfc'
-  }
+  },
+  primary: '#2185d0'
 };

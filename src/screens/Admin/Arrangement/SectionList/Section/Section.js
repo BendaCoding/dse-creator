@@ -1,12 +1,12 @@
 import React, { useState, Fragment } from 'react';
 import { Header, Icon } from 'semantic-ui-react';
 import { Flex, Box } from 'rebass';
-import { AddGroupModal } from './AddGroupModal';
+import { AddSnippetModal } from './AddSnippetModal';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { Group } from '../Group';
+import { Snippet } from '../Snippet';
 import { DRAG_TYPES } from '../constants';
 
-export const Section = ({ name, groups, id: sectionId, sectionIndex }) => {
+export const Section = ({ name, snippets, id: sectionId, sectionIndex }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onCloseModal = () => setIsModalOpen(false);
 
@@ -15,7 +15,7 @@ export const Section = ({ name, groups, id: sectionId, sectionIndex }) => {
       {({ innerRef, draggableProps, dragHandleProps }) => (
         <Fragment>
           <Box mb={3} ref={innerRef} {...draggableProps}>
-            <Droppable droppableId={sectionId} type={DRAG_TYPES.GROUP}>
+            <Droppable droppableId={sectionId} type={DRAG_TYPES.SNIPPET}>
               {provided => (
                 <div ref={provided.innerRef}>
                   <Header as="h4" attached="top" block {...dragHandleProps}>
@@ -29,8 +29,8 @@ export const Section = ({ name, groups, id: sectionId, sectionIndex }) => {
                     </Flex>
                   </Header>
 
-                  {groups.map(({ id, name }, index) => (
-                    <Group key={id} name={name} index={index} id={id} />
+                  {snippets.map(({ id, name }, index) => (
+                    <Snippet key={id} {...{ name, index, id, sectionId }} />
                   ))}
                   {provided.placeholder}
                 </div>
@@ -38,7 +38,7 @@ export const Section = ({ name, groups, id: sectionId, sectionIndex }) => {
             </Droppable>
           </Box>
           {isModalOpen && (
-            <AddGroupModal {...{ isModalOpen, onCloseModal, sectionIndex }} />
+            <AddSnippetModal {...{ isModalOpen, onCloseModal, sectionIndex }} />
           )}
         </Fragment>
       )}

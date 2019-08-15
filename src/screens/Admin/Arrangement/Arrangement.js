@@ -11,6 +11,12 @@ export const Arrangement = () => {
 
   return (
     <Tab.Pane>
+      <h3>Sektionen und Text Bausteine</h3>
+      <p>
+        Die DSE ist in Sektionen (z.B. Intro, Tools) aufgeteilt. Jede Sektion
+        enthält beliebig viele Text Bausteine, die konditional ein oder
+        ausgeschaltet werden können.
+      </p>
       <Button
         basic
         onClick={() =>
