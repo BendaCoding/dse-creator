@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Form, Button, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
-import { useForm } from '../../../utils';
-import { Checkbox } from '../../../components';
+import { useForm } from '@@utils';
+import { Checkbox } from '@@components';
 
-import { actions, selectors } from '../../../store/arrangement';
+import { actions, selectors } from '@@store/arrangement';
 
 export const Snippet = ({ history, match: { params } }) => {
   const dispatch = useDispatch();

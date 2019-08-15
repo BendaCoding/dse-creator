@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
-import { actions } from '../../../../../../store/arrangement';
-import { Input } from '../../../../../../components/Input/Input';
+import { actions } from '@@store/arrangement';
+import { Input } from '@@components';
 import uuid from 'uuid/v4';
 
 export const AddSnippetModal = ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Flex } from 'rebass';
-import { Input, Checkbox } from '../../components';
+import { Input, Checkbox } from '@@components';
 import { Button } from 'semantic-ui-react';
 
 export const CreateDse = () => (

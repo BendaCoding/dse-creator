@@ -3,7 +3,7 @@ import { Button, Tab } from 'semantic-ui-react';
 import uuid from 'uuid/v4';
 import { useDispatch } from 'react-redux';
 
-import { actions } from '../../../store/arrangement';
+import { actions } from '@@store/arrangement';
 import { SectionList } from './SectionList';
 
 export const Arrangement = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Container } from '../../components';
+import { Container } from '@@components';
 import { Arrangement } from './Arrangement';
 import { Snippet } from './Snippet';
 

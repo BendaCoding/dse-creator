@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@@base": ["./base"],
+      "@@base/*": ["./base/*", "./base/"],
+
+      "@@components": ["./components/"],
+      "@@components/*": ["./components/*", "./components/"],
+
+      "@@screens": ["./screens/"],
+      "@@screens/*": ["./screens/*", "./screens/"],
+
+      "@@store": ["./store/"],
+      "@@store/*": ["./store/*", "./store/"],
+
+      "@@utils": ["./utils/"],
+      "@@utils/*": ["./utils/*", "./utils/"]
+    }
+  }
+}

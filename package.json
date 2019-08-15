@@ -5,9 +5,9 @@
   "license": "UNLICENCED",
   "main": "main/main.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cra-alias start",
+    "build": "cra-alias build",
+    "test": "cra-alias test",
     "eject": "react-scripts eject",
     "dev": "NODE_ENV=dev concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
   },
@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
+    "cra-alias": "^4.13.14",
     "electron": "^5.0.4",
     "electron-builder": "^20.44.4",
     "electron-devtools-installer": "^2.2.4",

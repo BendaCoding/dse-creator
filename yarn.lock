@@ -3399,6 +3399,13 @@ cosmiconfig@^5.2.0:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
+cra-alias@^4.13.14:
+  version "4.13.14"
+  resolved "https://registry.yarnpkg.com/cra-alias/-/cra-alias-4.13.14.tgz#c03d0a5d658db86f709f83c58a5bf543b1802e62"
+  integrity sha512-PlPtoNKh/T93FiRfUU812zTNiCnBOctauDj7M3R7+wsvE0XFjhEjOFSu3g5arFgyxTYUw5Uch8v3CniXikb74g==
+  dependencies:
+    chalk "^2.4.2"
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
