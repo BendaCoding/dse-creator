@@ -35,7 +35,7 @@ export const SectionList = () => {
       );
     }
   };
-  console.log(sections);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Box mt={3}>

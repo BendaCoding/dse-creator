@@ -8,7 +8,7 @@ export const Wrap = styled.div`
   }
 `;
 
-export const Link = styled.span`
+export const Link = styled.div`
   cursor: pointer;
   transition: 190ms color ease-in;
 

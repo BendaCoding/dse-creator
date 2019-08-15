@@ -1,8 +1,8 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Icon, Segment } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router';
-
+import { Flex } from 'rebass';
 import * as S from './styled';
 
 export const Snippet = ({ sectionId, id, name, index, history }) => {
@@ -12,15 +12,19 @@ export const Snippet = ({ sectionId, id, name, index, history }) => {
     <S.Wrap>
       <Draggable draggableId={id} index={index}>
         {({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => (
-          <div
+          <S.Link
             className={isDragging ? 'isDragging' : ''}
             ref={innerRef}
-            {...{ ...draggableProps, ...dragHandleProps }}
+            onClick={onSnippetClick}
+            {...{ ...draggableProps }}
           >
             <Segment attached>
-              <S.Link onClick={onSnippetClick}>{name}</S.Link>
+              <Flex justifyContent="space-between">
+                <span>{name}</span>
+                <Icon name="bars" color="grey" {...dragHandleProps} />
+              </Flex>
             </Segment>
-          </div>
+          </S.Link>
         )}
       </Draggable>
     </S.Wrap>
