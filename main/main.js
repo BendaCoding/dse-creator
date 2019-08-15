@@ -16,6 +16,7 @@ const {
 } = require('electron-devtools-installer');
 
 const store = require('./store');
+const { IPC_EVENTS } = require('../src/utils/enums');
 
 let mainWindow;
 
@@ -46,10 +47,15 @@ app.on('activate', () => {
 //   });
 // });
 
-ipcMain.on('REQUEST_DATA', event => {
+ipcMain.on(IPC_EVENTS.REQUEST_STATE, event => {
   const data = store.get('store');
   console.log('Hydrate App from file storage');
-  event.sender.send('HYDRATE_APP', data);
+  event.sender.send(IPC_EVENTS.HYDRATE_STATE, data);
+});
+
+ipcMain.on(IPC_EVENTS.SAVE_STATE_TO_FILE, (event, state) => {
+  store.set('store', state);
+  console.log('Saved state to file');
 });
 
 function createWindow() {

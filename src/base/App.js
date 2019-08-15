@@ -8,6 +8,7 @@ import * as S from './styled';
 import { Header } from './Header';
 import { Home, CreateDse, Admin } from '../screens';
 import { store } from '../store';
+import { IPC_EVENTS } from '../utils/enums';
 
 import 'semantic-ui-css/semantic.min.css';
 
@@ -16,8 +17,9 @@ export const App = () => {
 
   /* Hydrate Store from storage */
   useEffect(() => {
-    window.ipc.send('REQUEST_DATA');
-    window.ipc.on('HYDRATE_APP', (event, payload) => {
+    window.ipc.send(IPC_EVENTS.REQUEST_STATE);
+    window.ipc.on(IPC_EVENTS.HYDRATE_STATE, (event, payload) => {
+      console.log('Received Store data');
       setIsLoading(false);
       store.dispatch({ type: 'HYDRATE_STORE', payload });
     });
@@ -34,8 +36,7 @@ export const App = () => {
             <Header>DSE Creator</Header>
             <S.Content>
               <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/create" component={CreateDse} />
+                <Route exact path="/" component={CreateDse} />
                 <Route path="/admin" component={Admin} />
               </Switch>
             </S.Content>

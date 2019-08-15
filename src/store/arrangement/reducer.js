@@ -1,5 +1,4 @@
 import * as TYPES from './actionTypes';
-import findIndex from 'lodash/fp';
 
 export const initialState = {
   sections: []

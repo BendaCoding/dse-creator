@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Header, Segment, Icon } from 'semantic-ui-react';
+import { Header, Icon } from 'semantic-ui-react';
 import { Flex, Box } from 'rebass';
 import { AddGroupModal } from './AddGroupModal';
 import { Droppable, Draggable } from 'react-beautiful-dnd';

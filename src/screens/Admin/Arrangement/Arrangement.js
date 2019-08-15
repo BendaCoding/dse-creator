@@ -1,18 +1,18 @@
 import React from 'react';
 import { Button, Tab } from 'semantic-ui-react';
+import uuid from 'uuid/v4';
 import { useDispatch } from 'react-redux';
+
 import { actions } from '../../../store/arrangement';
 import { SectionList } from './SectionList';
-
-const uuid = require('uuid/v4');
 
 export const Arrangement = () => {
   const dispatch = useDispatch();
 
   return (
     <Tab.Pane>
-      <Button primary>Gruppe erstellen</Button>
       <Button
+        basic
         onClick={() =>
           dispatch(actions.addSection({ name: 'asd', id: uuid() }))
         }
