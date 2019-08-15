@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tab, Form, Button } from 'semantic-ui-react';
+import { Tab, Form, Button, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 import { useForm } from '../../../utils';
+import { Checkbox } from '../../../components';
 
 import { actions, selectors } from '../../../store/arrangement';
 
@@ -15,6 +16,7 @@ export const Snippet = ({ history, match: { params } }) => {
       name: '',
       title: '',
       text: '',
+      alwaysShow: false,
       ...snippet
     },
     values => {
@@ -50,6 +52,17 @@ export const Snippet = ({ history, match: { params } }) => {
           onChange={handleChange}
           style={{ minHeight: 200 }}
           placeholder="Was sagt dieser Baustein?"
+        />
+        <Popup
+          content="Wenn aktiv, wird der Baustein in jede DSE eingefügt, ohne manuelle Selektion"
+          trigger={
+            <Checkbox
+              label="Immer anzeigen"
+              name="alwaysShow"
+              checked={values.alwaysShow}
+              onChange={handleChange}
+            />
+          }
         />
         <Button onClick={handleSubmit} primary>
           Speichern
