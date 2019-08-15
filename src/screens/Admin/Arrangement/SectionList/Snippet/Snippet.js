@@ -6,8 +6,6 @@ import { withRouter } from 'react-router';
 import * as S from './styled';
 
 export const Snippet = ({ sectionId, id, name, index, history }) => {
-  console.log(`/admin/${sectionId}/${id}`);
-
   const onSnippetClick = () => history.push(`/admin/${sectionId}/${id}`);
 
   return (

@@ -5,6 +5,22 @@ export const initialState = {
   sections: []
 };
 
+const getSectionIndexFromId = ({ sections, sectionId }) =>
+  sections.findIndex(({ id }) => id === sectionId);
+
+const getSnippetIndexFromId = ({ sections, sectionId, snippetId }) => {
+  const sectionIndex = getSectionIndexFromId({ sections, sectionId });
+  return sections[sectionIndex].snippets.findIndex(
+    ({ id }) => id === snippetId
+  );
+};
+
+const getIndexes = payload => {
+  const sectionIndex = getSectionIndexFromId(payload);
+  const snippetIndex = getSnippetIndexFromId(payload);
+  return { sectionIndex, snippetIndex };
+};
+
 export const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case TYPES.ADD_SECTION: {
@@ -52,12 +68,24 @@ export const reducer = (state = initialState, { type, payload }) => {
       };
     }
     case TYPES.REMOVE_SNIPPET: {
-      const id = payload;
+      const { sectionId, snippetId } = payload;
+      const { sections } = state;
+      const { sectionIndex, snippetIndex } = getIndexes({
+        sections,
+        sectionId,
+        snippetId
+      });
+      const sectionToEdit = sections[sectionIndex];
+      const snippets = sectionToEdit.snippets.slice();
+      snippets.splice(snippetIndex, 1);
+
+      console.log(snippets);
       return {
         ...state,
         sections: [
-          ...state.sections.slice(0, id),
-          ...state.sections.slice(id + 1)
+          ...sections.slice(0, sectionIndex),
+          { ...sectionToEdit, snippets },
+          ...state.sections.slice(sectionIndex + 1)
         ]
       };
     }
@@ -81,10 +109,11 @@ export const reducer = (state = initialState, { type, payload }) => {
       const { sectionId, snippetId, snippet } = payload;
       const { sections } = state;
 
-      const sectionIndex = sections.findIndex(({ id }) => id === sectionId);
-      const snippetIndex = sections[sectionIndex].snippets.findIndex(
-        ({ id }) => id === snippetId
-      );
+      const { sectionIndex, snippetIndex } = getIndexes({
+        sections,
+        sectionId,
+        snippetId
+      });
 
       return set(
         `sections[${sectionIndex}].snippets[${snippetIndex}]`,

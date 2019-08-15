@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Form, Button, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
+import { Flex, Box } from 'rebass';
+
 import { useForm } from '@@utils';
 import { Checkbox } from '@@components';
 
@@ -26,7 +28,16 @@ export const Snippet = ({ history, match: { params } }) => {
     }
   );
 
-  const onBack = () => history.goBack();
+  const onBack = e => {
+    e.preventDefault();
+    history.push('/admin');
+  };
+
+  const onDelete = e => {
+    e.preventDefault();
+    dispatch(actions.removeSnippet({ ...params }));
+    history.push('/admin');
+  };
 
   return (
     <Tab.Pane>
@@ -76,10 +87,17 @@ export const Snippet = ({ history, match: { params } }) => {
             />
           }
         />
-        <Button onClick={handleSubmit} primary>
-          Speichern
-        </Button>
-        <Button onClick={onBack}>Zurück</Button>
+        <Flex>
+          <Button type="submit" onClick={handleSubmit} primary>
+            Speichern
+          </Button>
+          <Button onClick={onBack}>Zurück</Button>
+          <Box ml="auto">
+            <Button negative onClick={onDelete}>
+              Löschen
+            </Button>
+          </Box>
+        </Flex>
       </Form>
     </Tab.Pane>
   );
