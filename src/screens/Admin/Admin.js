@@ -1,49 +1,43 @@
-import React, { useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from '../../components';
 import { Menu } from 'semantic-ui-react';
 import { Arrangement } from './Arrangement';
 import { Snippets } from './Snippets';
 import { withRouter } from 'react-router';
 
-const MENU_ITEMS = {
-  SNIPPETS: 'SNIPPETS',
-  ARRANGEMENT: 'ARRANGEMENT'
-};
-
-const MENU_ITEMS_TO_URL = {
+const SUB_PATHS = {
   SNIPPETS: '/admin/snippets',
   ARRANGEMENT: '/admin/arrangement'
 };
 
-export const Admin = ({ history }) => {
-  const [activeItem, setActiveItem] = useState(MENU_ITEMS.SNIPPETS);
+export const Admin = ({ history, match }) => {
   const handleItemClick = (e, { name }) => {
-    setActiveItem(name);
-    history.push(MENU_ITEMS_TO_URL[name]);
+    history.push(name);
   };
 
   return (
     <Container>
       <Menu pointing>
         <Menu.Item
-          name={MENU_ITEMS.SNIPPETS}
-          active={activeItem === MENU_ITEMS.SNIPPETS}
+          name={SUB_PATHS.SNIPPETS}
+          active={match.url === SUB_PATHS.SNIPPETS}
           onClick={handleItemClick}
         >
           Text Bausteine
         </Menu.Item>
         <Menu.Item
-          name={MENU_ITEMS.ARRANGEMENT}
-          active={activeItem === MENU_ITEMS.ARRANGEMENT}
+          name={SUB_PATHS.ARRANGEMENT}
+          active={match.url === SUB_PATHS.ARRANGEMENT}
           onClick={handleItemClick}
         >
           Anordnung
         </Menu.Item>
       </Menu>
       <Switch>
-        <Route path={MENU_ITEMS_TO_URL.SNIPPETS} component={Snippets} />
-        <Route path={MENU_ITEMS_TO_URL.ARRANGEMENT} component={Arrangement} />
+        <Route path={SUB_PATHS.SNIPPETS} component={Snippets} />
+        <Route path={SUB_PATHS.ARRANGEMENT} component={Arrangement} />
+        <Redirect to={SUB_PATHS.ARRANGEMENT} />
       </Switch>
     </Container>
   );

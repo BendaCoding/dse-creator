@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { theme } from './theme';
 import * as S from './styled';
 import { Header } from './Header';
-import { Home, CreateDse, Admin } from '../screens';
+import { CreateDse, Admin } from '../screens';
 import { store } from '../store';
 import { IPC_EVENTS } from '../utils/enums';
 
@@ -37,7 +37,7 @@ export const App = () => {
             <S.Content>
               <Switch>
                 <Route exact path="/" component={CreateDse} />
-                <Route path="/admin" component={Admin} />
+                <Route path="/admin/:section?" component={Admin} />
               </Switch>
             </S.Content>
           </S.BodyWrap>
