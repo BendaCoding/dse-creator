@@ -15,10 +15,6 @@ export const getSnippet = createSelector(
     compose(
       find(({ id }) => id === snippetId),
       property('snippets'),
-      a => {
-        console.log('hit selector');
-        return a;
-      },
       find(({ id }) => id === sectionId)
     )(sections)
 );

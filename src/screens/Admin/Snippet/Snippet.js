@@ -4,17 +4,47 @@ import { Tab, Form, Button, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 import { Flex, Box } from 'rebass';
 
+import { Editor } from 'react-draft-wysiwyg';
+import {
+  EditorState,
+  ContentState,
+  convertFromRaw,
+  convertToRaw
+} from 'draft-js';
+
 import { useForm } from '@@utils';
 import { Checkbox } from '@@components';
 
 import { actions, selectors } from '@@store/arrangement';
 
+const getEditorStateFromRawData = rawData =>
+  EditorState.createWithContent(convertFromRaw(rawData));
+
 export const Snippet = ({ history, match: { params } }) => {
   const dispatch = useDispatch();
   const snippet = useSelector(state => selectors.getSnippet(state, params));
 
-  const { values, handleChange, handleSubmit } = useForm(snippet, values => {
-    dispatch(actions.editSnippet({ ...params, snippet: { ...values } }));
+  const editorText = snippet.text
+    ? getEditorStateFromRawData(snippet.text)
+    : EditorState.createEmpty();
+
+  console.log('Snipper render');
+  console.log('xxx', editorText.getCurrentContent().getPlainText());
+  const formData = {
+    ...snippet,
+    text: editorText
+  };
+  console.log('formData', formData.text);
+
+  const { values, handleChange, handleSubmit } = useForm(formData, values => {
+    console.log('text', values.text);
+    const text = convertToRaw(values.text.getCurrentContent());
+    dispatch(
+      actions.editSnippet({
+        ...params,
+        snippet: { ...values, text }
+      })
+    );
     history.push('/admin');
   });
 
@@ -27,6 +57,14 @@ export const Snippet = ({ history, match: { params } }) => {
     e.preventDefault();
     dispatch(actions.removeSnippet({ ...params }));
     history.push('/admin');
+  };
+
+  const onEditorChange = state => {
+    const event = {
+      persist: () => null,
+      target: { name: 'text', value: state }
+    };
+    handleChange(event);
   };
 
   return (
@@ -46,12 +84,11 @@ export const Snippet = ({ history, match: { params } }) => {
           label="Titel"
           value={values.title}
         />
-        <Form.TextArea
+        <Editor
           label="Text"
           name="text"
-          value={values.text}
-          onChange={handleChange}
-          style={{ minHeight: 200 }}
+          editorState={values.text}
+          onEditorStateChange={onEditorChange}
           placeholder="Was sagt dieser Baustein?"
         />
         <Popup

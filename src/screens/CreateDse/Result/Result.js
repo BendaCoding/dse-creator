@@ -22,15 +22,11 @@ const generateText = (values, sections) =>
       );
 
       if (snippet.alwaysShow || snippetSelection) {
-        if (snippet.title) {
-          sectionResult += snippet.title + '\n';
-        }
         sectionResult += snippet.text + '\n';
       }
 
       return sectionResult;
     }, '');
-    console.log('sectionText', sectionText);
 
     result += sectionText;
     return result;
