@@ -11,6 +11,7 @@ import { store } from '../store';
 import { IPC_EVENTS } from '../utils/enums';
 
 import 'semantic-ui-css/semantic.min.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);

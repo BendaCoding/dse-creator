@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, Flex } from 'rebass';
 import { useSelector } from 'react-redux';
-import { Button, TextArea, Form } from 'semantic-ui-react';
+import { Button, Tab } from 'semantic-ui-react';
 import camelCase from 'lodash/fp/camelCase';
 import getOr from 'lodash/fp/getOr';
 import { FormContext } from '@@utils/';
 import { selectors } from '@@store/arrangement';
 
-const getText = (values, sections) =>
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState, ContentState, convertToRaw } from 'draft-js';
+
+const generateText = (values, sections) =>
   sections.reduce((result, section) => {
     const sectionName = camelCase(section.name);
 
@@ -17,12 +20,6 @@ const getText = (values, sections) =>
         `${sectionName}.${snippet.id}`,
         values
       );
-
-      const log = `${snippet.name} was ${
-        snippetSelection ? 'selected' : 'not selected'
-      }`;
-
-      console.log(log);
 
       if (snippet.alwaysShow || snippetSelection) {
         if (snippet.title) {
@@ -42,16 +39,28 @@ const getText = (values, sections) =>
 export const Result = () => {
   const { values } = useContext(FormContext);
   const sections = useSelector(selectors.getSections);
+  const [text, setText] = useState(null);
 
-  const text = getText(values, sections);
+  useEffect(() => {
+    console.log('compute text');
+    setText(
+      EditorState.createWithContent(
+        ContentState.createFromText(generateText(values, sections))
+      )
+    );
+  }, [sections, values]);
 
   return (
     <>
       <Flex justifyContent="center" />
       <h3>Deine Datenschutzerklärung</h3>
-      <Form>
-        <TextArea style={{ minHeight: 500 }}>{text}</TextArea>
-      </Form>
+      <Tab.Pane>
+        <Editor
+          editorState={text}
+          onEditorStateChange={state => setText(state)}
+        />
+      </Tab.Pane>
+      {JSON.stringify(text && convertToRaw(text.getCurrentContent()))}
     </>
   );
 };
