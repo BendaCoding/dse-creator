@@ -5,10 +5,12 @@ import { selectors } from '@@store/arrangement';
 import { useForm, FormContext } from '@@utils';
 import { Switch, Route } from 'react-router';
 import { Form } from './Form';
+import { Result } from './Result';
+import { withRouter } from 'react-router';
 
-export const CreateDse = () => {
+export const CreateDse = withRouter(({ match }) => {
   const initialShit = useSelector(selectors.getInitialValues);
-  console.log(initialShit);
+  console.log(match.path);
 
   const { values, handleSubmit, handleChange } = useForm(
     initialShit,
@@ -20,8 +22,9 @@ export const CreateDse = () => {
   return (
     <FormContext.Provider value={{ values, handleChange }}>
       <Switch>
-        <Route path="" exact component={Form} />
+        <Route path="/create" exact component={Form} />
+        <Route path="/create/result" component={Result} />
       </Switch>
     </FormContext.Provider>
   );
-};
+});

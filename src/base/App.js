@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { theme } from './theme';
@@ -36,8 +36,9 @@ export const App = () => {
             <Header>DSE Creator</Header>
             <S.Content>
               <Switch>
-                <Route exact path="/" component={CreateDse} />
+                <Route path="/create" component={CreateDse} />
                 <Route path="/admin/:section?" component={Admin} />
+                <Redirect to="/create" />
               </Switch>
             </S.Content>
           </S.BodyWrap>

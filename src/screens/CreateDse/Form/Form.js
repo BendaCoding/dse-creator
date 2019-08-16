@@ -2,14 +2,15 @@ import React from 'react';
 import { Box, Flex } from 'rebass';
 import { Button } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-import { selectors } from '@@store/arrangement';
+import { withRouter } from 'react-router';
 
+import { selectors } from '@@store/arrangement';
 import { SectionForm } from './SectionForm';
 import { GeneralInfo } from './GeneralInfo';
 
-export const Form = () => {
+export const Form = ({ history }) => {
   const sections = useSelector(selectors.getSections);
-
+  const onCreate = () => history.push('/create/result');
   return (
     <Flex justifyContent="center">
       <Box width={1 / 2}>
@@ -20,7 +21,7 @@ export const Form = () => {
         ))}
 
         <Box mt={4}>
-          <Button onClick={() => null} primary>
+          <Button onClick={onCreate} primary>
             Datenschutzerklärung generieren
           </Button>
         </Box>
@@ -28,3 +29,5 @@ export const Form = () => {
     </Flex>
   );
 };
+
+export default withRouter(Form);

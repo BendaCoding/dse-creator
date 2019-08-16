@@ -61,7 +61,10 @@ export const reducer = (state = initialState, { type, payload }) => {
           ...state.sections.slice(0, sectionIndex),
           {
             ...section,
-            snippets: [...section.snippets, { ...rest, defaultOn: true }]
+            snippets: [
+              ...section.snippets,
+              { ...rest, defaultOn: true, text: '' }
+            ]
           },
           ...state.sections.slice(sectionIndex + 1)
         ]
