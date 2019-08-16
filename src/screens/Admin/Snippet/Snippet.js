@@ -13,20 +13,10 @@ export const Snippet = ({ history, match: { params } }) => {
   const dispatch = useDispatch();
   const snippet = useSelector(state => selectors.getSnippet(state, params));
 
-  const { values, handleChange, handleSubmit } = useForm(
-    {
-      name: '',
-      title: '',
-      text: '',
-      alwaysShow: false,
-      defaultOn: true,
-      ...snippet
-    },
-    values => {
-      dispatch(actions.editSnippet({ ...params, snippet: { ...values } }));
-      history.push('/admin');
-    }
-  );
+  const { values, handleChange, handleSubmit } = useForm(snippet, values => {
+    dispatch(actions.editSnippet({ ...params, snippet: { ...values } }));
+    history.push('/admin');
+  });
 
   const onBack = e => {
     e.preventDefault();

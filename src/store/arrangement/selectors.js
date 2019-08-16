@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import find from 'lodash/fp/find';
 import compose from 'lodash/fp/compose';
 import property from 'lodash/fp/property';
+import camelCase from 'lodash/fp/camelCase';
 
 export const getArrangement = state => state.arrangement;
 
@@ -20,4 +21,31 @@ export const getSnippet = createSelector(
       },
       find(({ id }) => id === sectionId)
     )(sections)
+);
+
+const getCheckedSnippets = ({ name, snippets }) => {
+  const formattedName = camelCase(name);
+  return snippets.reduce(
+    (prev, cur) =>
+      cur.defaultOn
+        ? {
+            ...prev,
+            [formattedName]: {
+              ...prev[formattedName],
+              [cur.id]: true
+            }
+          }
+        : prev,
+    {}
+  );
+};
+
+export const getInitialValues = createSelector(
+  getSections,
+  sections => {
+    return sections.reduce(
+      (prev, cur) => ({ ...prev, ...getCheckedSnippets(cur) }),
+      {}
+    );
+  }
 );

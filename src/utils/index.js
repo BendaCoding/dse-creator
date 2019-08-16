@@ -1,2 +1,2 @@
 export * from './enums';
-export { useForm } from './useForm';
+export { useForm, FormContext } from './useForm';
