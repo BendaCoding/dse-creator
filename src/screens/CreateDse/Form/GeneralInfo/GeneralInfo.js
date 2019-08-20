@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, FormInput } from '@@components';
+import { FormInput } from '@@components';
 import { Flex, Box } from 'rebass';
 
 export const GeneralInfo = () => (

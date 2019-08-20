@@ -1,20 +1,47 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Box, Flex } from 'rebass';
+import { Flex } from 'rebass';
 import { useSelector } from 'react-redux';
-import { Button, Tab } from 'semantic-ui-react';
+import { Tab } from 'semantic-ui-react';
 import camelCase from 'lodash/fp/camelCase';
 import getOr from 'lodash/fp/getOr';
 import { FormContext } from '@@utils/';
 import { selectors } from '@@store/arrangement';
-
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import { EditorState, convertFromRaw, ContentState } from 'draft-js';
 
-const generateText = (values, sections) =>
-  sections.reduce((result, section) => {
+const addSnippetToEditor = (editorState, raw) => {
+  const currentContentState = editorState.getCurrentContent();
+  const currentBlockMap = currentContentState.getBlockMap();
+
+  // new ContentBlocks
+  const newContentState = convertFromRaw(raw);
+  const newBlockMap = newContentState.getBlockMap();
+
+  // Combine
+  const combinedBlockMap = currentBlockMap.concat(newBlockMap);
+  const combinedContentState = ContentState.createFromBlockArray(
+    combinedBlockMap.toArray()
+  );
+
+  // Push EditorState while excluding changes from undo/redo stack
+  const stateNoUndo = EditorState.set(editorState, { allowUndo: false });
+  const newState = EditorState.push(
+    stateNoUndo,
+    combinedContentState,
+    'insert-fragment'
+  );
+  const stateAllowUndo = EditorState.set(newState, { allowUndo: true });
+
+  return stateAllowUndo;
+};
+
+const createEditorState = ({ values, sections }) => {
+  let editorState;
+
+  sections.forEach(section => {
     const sectionName = camelCase(section.name);
 
-    const sectionText = section.snippets.reduce((sectionResult, snippet) => {
+    section.snippets.forEach(snippet => {
       const snippetSelection = getOr(
         false,
         `${sectionName}.${snippet.id}`,
@@ -22,32 +49,32 @@ const generateText = (values, sections) =>
       );
 
       if (snippet.alwaysShow || snippetSelection) {
-        if (snippet.title) {
-          sectionResult += snippet.title + '\n';
+        console.log('Add', snippet.name);
+        if (!editorState) {
+          const contentState = convertFromRaw(snippet.data);
+          editorState = EditorState.createWithContent(contentState);
+        } else {
+          editorState = addSnippetToEditor(editorState, snippet.data);
         }
-        sectionResult += snippet.text + '\n';
       }
+    });
+  });
 
-      return sectionResult;
-    }, '');
-    console.log('sectionText', sectionText);
-
-    result += sectionText;
-    return result;
-  }, '');
+  return editorState;
+};
 
 export const Result = () => {
   const { values } = useContext(FormContext);
   const sections = useSelector(selectors.getSections);
-  const [text, setText] = useState(null);
+  const [editorState, setEditorState] = useState(false);
 
   useEffect(() => {
-    console.log('compute text');
-    setText(
-      EditorState.createWithContent(
-        ContentState.createFromText(generateText(values, sections))
-      )
-    );
+    console.log('##### CREATE STATE');
+    const newEditorState = createEditorState({
+      values,
+      sections
+    });
+    setEditorState(newEditorState);
   }, [sections, values]);
 
   return (
@@ -56,11 +83,10 @@ export const Result = () => {
       <h3>Deine Datenschutzerklärung</h3>
       <Tab.Pane>
         <Editor
-          editorState={text}
-          onEditorStateChange={state => setText(state)}
+          editorState={editorState}
+          onEditorStateChange={state => setEditorState(state)}
         />
       </Tab.Pane>
-      {JSON.stringify(text && convertToRaw(text.getCurrentContent()))}
     </>
   );
 };
