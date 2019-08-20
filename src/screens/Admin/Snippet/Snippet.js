@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Form, Button, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
@@ -18,6 +18,7 @@ const getEditorStateFromRawData = rawData =>
 export const Snippet = ({ history, match: { params } }) => {
   const dispatch = useDispatch();
   const snippet = useSelector(state => selectors.getSnippet(state, params));
+  const [autoCompleteState, setAutoCompleteState] = useState(null);
 
   const editorState = snippet.data
     ? getEditorStateFromRawData(snippet.data)
