@@ -12,12 +12,9 @@ export const CreateDse = withRouter(({ match }) => {
   const initialShit = useSelector(selectors.getInitialValues);
   console.log(match.path);
 
-  const { values, handleSubmit, handleChange } = useForm(
-    initialShit,
-    values => {
-      console.log(values, 'submitting');
-    }
-  );
+  const { values, handleChange } = useForm(initialShit, values => {
+    console.log(values, 'submitting');
+  });
 
   return (
     <FormContext.Provider value={{ values, handleChange }}>

@@ -5,12 +5,7 @@ import { withRouter } from 'react-router';
 import { Flex, Box } from 'rebass';
 
 import { Editor } from 'react-draft-wysiwyg';
-import {
-  EditorState,
-  ContentState,
-  convertFromRaw,
-  convertToRaw
-} from 'draft-js';
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 
 import { useForm } from '@@utils';
 import { Checkbox } from '@@components';
@@ -24,25 +19,21 @@ export const Snippet = ({ history, match: { params } }) => {
   const dispatch = useDispatch();
   const snippet = useSelector(state => selectors.getSnippet(state, params));
 
-  const editorText = snippet.text
-    ? getEditorStateFromRawData(snippet.text)
+  const editorState = snippet.data
+    ? getEditorStateFromRawData(snippet.data)
     : EditorState.createEmpty();
 
-  console.log('Snipper render');
-  console.log('xxx', editorText.getCurrentContent().getPlainText());
   const formData = {
     ...snippet,
-    text: editorText
+    data: editorState
   };
-  console.log('formData', formData.text);
 
   const { values, handleChange, handleSubmit } = useForm(formData, values => {
-    console.log('text', values.text);
-    const text = convertToRaw(values.text.getCurrentContent());
+    const data = convertToRaw(values.data.getCurrentContent());
     dispatch(
       actions.editSnippet({
         ...params,
-        snippet: { ...values, text }
+        snippet: { ...values, data }
       })
     );
     history.push('/admin');
@@ -62,7 +53,7 @@ export const Snippet = ({ history, match: { params } }) => {
   const onEditorChange = state => {
     const event = {
       persist: () => null,
-      target: { name: 'text', value: state }
+      target: { name: 'data', value: state }
     };
     handleChange(event);
   };
@@ -86,8 +77,7 @@ export const Snippet = ({ history, match: { params } }) => {
         />
         <Editor
           label="Text"
-          name="text"
-          editorState={values.text}
+          editorState={values.data}
           onEditorStateChange={onEditorChange}
           placeholder="Was sagt dieser Baustein?"
         />
