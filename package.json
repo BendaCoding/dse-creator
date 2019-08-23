@@ -14,20 +14,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "dependencies": {
     "draft-js": "^0.11.0",
+    "electron-debug": "^3.0.1",
     "electron-is-dev": "^1.1.0",
     "electron-store": "^4.0.0",
     "formik": "^1.5.7",

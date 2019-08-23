@@ -2,12 +2,9 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const ipcMain = electron.ipcMain;
-const dialog = electron.dialog;
 
 const path = require('path');
-const url = require('url');
 const isDev = require('electron-is-dev');
-const fs = require('fs');
 
 const {
   default: installExtension,
@@ -17,6 +14,10 @@ const {
 
 const store = require('./store');
 const { IPC_EVENTS } = require('../src/utils/enums');
+
+const debug = require('electron-debug');
+
+debug();
 
 let mainWindow;
 
