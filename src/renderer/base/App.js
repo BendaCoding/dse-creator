@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-// import { ThemeProvider } from 'styled-components';
-// import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-// import { Provider } from 'react-redux';
-// import { ipcRenderer } from 'electron';
+import { ThemeProvider } from 'styled-components';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { ipcRenderer } from 'electron';
 
-// import { theme } from './theme';
-// import * as S from './styled';
-// import { Header } from './Header';
-// import { CreateDse, Admin } from '../screens';
+import { theme } from './theme';
+import * as S from './styled';
+import { Header } from './Header';
+import { CreateDse, Admin } from '../screens';
 import { store } from '../store';
 import { IPC_EVENTS } from '../../constants';
-import { ipcRenderer } from 'electron';
 // import 'semantic-ui-css/semantic.min.css';
 // import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
