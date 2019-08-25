@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Flex } from 'rebass';
+// import { Flex } from 'rebass';
 import { useSelector } from 'react-redux';
 import { Tab } from 'semantic-ui-react';
 import camelCase from 'lodash/fp/camelCase';

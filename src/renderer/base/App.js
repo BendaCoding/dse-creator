@@ -10,8 +10,9 @@ import { Header } from './Header';
 import { CreateDse, Admin } from '../screens';
 import { store } from '../store';
 import { IPC_EVENTS } from '../../constants';
-// import 'semantic-ui-css/semantic.min.css';
-// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+import 'semantic-ui-css/semantic.min.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,23 +30,22 @@ export const App = () => {
   return isLoading ? (
     'Loading...'
   ) : (
-    <div>Im the app</div>
-    // <ThemeProvider theme={theme}>
-    //   <BrowserRouter>
-    //     <Provider store={store}>
-    //       <S.BodyWrap>
-    //         <S.GlobalStyle />
-    //         <Header>DSE Creator</Header>
-    //         <S.Content>
-    //           <Switch>
-    //             <Route path="/create" component={CreateDse} />
-    //             <Route path="/admin/:section?" component={Admin} />
-    //             <Redirect to="/create" />
-    //           </Switch>
-    //         </S.Content>
-    //       </S.BodyWrap>
-    //     </Provider>
-    //   </BrowserRouter>
-    // </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Provider store={store}>
+          <S.BodyWrap>
+            <S.GlobalStyle />
+            <Header>DSE Creator</Header>
+            <S.Content>
+              <Switch>
+                <Route path="/create" component={CreateDse} />
+                <Route path="/admin/:section?" component={Admin} />
+                <Redirect to="/create" />
+              </Switch>
+            </S.Content>
+          </S.BodyWrap>
+        </Provider>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };

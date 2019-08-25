@@ -10,6 +10,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 
 let mainWindow;
 console.log('################## dirname in main/index.js', __dirname);
+
 function createMainWindow() {
   const { width, height } = electronStore.get('windowBounds');
 
