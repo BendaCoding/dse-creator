@@ -38,5 +38,10 @@
   },
   "resolutions": {
     "upath": "^1.0.5"
+  },
+  "electronWebpack": {
+    "renderer": {
+      "webpackConfig": "configs/webpack.renderer.additions.js"
+    }
   }
 }
