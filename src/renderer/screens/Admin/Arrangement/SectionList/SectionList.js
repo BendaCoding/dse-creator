@@ -9,7 +9,7 @@ import { DRAG_TYPES } from './constants';
 export const SectionList = () => {
   const dispatch = useDispatch();
   const sections = useSelector(selectors.getSections);
-  console.log('SEXXX', sections);
+
   const onDragEnd = ({ destination, source, type }) => {
     if (!destination) {
       return;

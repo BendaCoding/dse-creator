@@ -82,7 +82,6 @@ export const reducer = (state = initialState, { type, payload }) => {
       const snippets = sectionToEdit.snippets.slice();
       snippets.splice(snippetIndex, 1);
 
-      console.log(snippets);
       return {
         ...state,
         sections: [

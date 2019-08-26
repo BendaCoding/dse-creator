@@ -9,7 +9,6 @@ import { IPC_EVENTS } from '../constants';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 let mainWindow;
-console.log('################## dirname in main/index.js', __dirname);
 
 function createMainWindow() {
   const { width, height } = electronStore.get('windowBounds');
@@ -20,7 +19,6 @@ function createMainWindow() {
     webPreferences: {
       nodeIntegration: true
       // webSecurity: false,
-      // preload: __dirname + '/preload.js'
     }
   });
 

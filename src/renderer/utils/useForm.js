@@ -7,7 +7,6 @@ export const useForm = (initialValues = {}, callback) => {
   const [values, setValues] = useState(initialValues);
 
   const handleSubmit = event => {
-    console.log('handleSubmit');
     if (event) {
       event.preventDefault();
     }
@@ -16,7 +15,6 @@ export const useForm = (initialValues = {}, callback) => {
 
   const handleChange = event => {
     event.persist();
-    console.log('handleChange');
     setValues(inputs => set(event.target.name, event.target.value, inputs));
   };
 
