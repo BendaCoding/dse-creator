@@ -11,7 +11,7 @@ export const Header = () => (
         <Icon name="setting" />
         <label>Admin</label>
       </S.NavLink>
-      <S.NavLink exact to="/">
+      <S.NavLink exact to="/create">
         <Icon name="add" />
         <label>Neue DSE</label>
       </S.NavLink>
