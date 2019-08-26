@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ipcRenderer } from 'electron';
 
@@ -31,7 +31,7 @@ export const App = () => {
     'Loading...'
   ) : (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <HashRouter>
         <Provider store={store}>
           <S.BodyWrap>
             <S.GlobalStyle />
@@ -45,7 +45,7 @@ export const App = () => {
             </S.Content>
           </S.BodyWrap>
         </Provider>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 };

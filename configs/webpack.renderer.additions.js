@@ -10,5 +10,8 @@ module.exports = {
       '@@store': path.resolve(__dirname, '../src/renderer/store/'),
       '@@utils': path.resolve(__dirname, '../src/renderer/utils/')
     }
+  },
+  devServer: {
+    hot: true
   }
 };

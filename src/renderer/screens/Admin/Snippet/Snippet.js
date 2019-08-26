@@ -5,11 +5,10 @@ import { Tab, Form, Button, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
 import { Flex, Box } from 'rebass';
 
-import { Editor } from 'react-draft-wysiwyg';
 import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
 
 import { useForm } from '@@utils';
-import { Checkbox } from '@@components';
+import { Editor, Checkbox } from '@@components';
 
 import { actions, selectors } from '@@store/arrangement';
 
@@ -39,6 +38,7 @@ export const Snippet = ({ history, match: { params } }) => {
     );
     history.push('/admin');
   });
+  console.log(values);
 
   const onBack = e => {
     e.preventDefault();
@@ -81,6 +81,20 @@ export const Snippet = ({ history, match: { params } }) => {
           editorState={values.data}
           onEditorStateChange={onEditorChange}
           placeholder="Was sagt dieser Baustein?"
+          mention={{
+            separator: ' ',
+            trigger: '@',
+            suggestions: [
+              { text: 'APPLE', value: 'apple', url: 'apple' },
+              { text: 'BANANA', value: 'banana', url: 'banana' },
+              { text: 'CHERRY', value: 'cherry', url: 'cherry' },
+              { text: 'DURIAN', value: 'durian', url: 'durian' },
+              { text: 'EGGFRUIT', value: 'eggfruit', url: 'eggfruit' },
+              { text: 'FIG', value: 'fig', url: 'fig' },
+              { text: 'GRAPEFRUIT', value: 'grapefruit', url: 'grapefruit' },
+              { text: 'HONEYDEW', value: 'honeydew', url: 'honeydew' }
+            ]
+          }}
         />
         <Popup
           content="Wenn aktiv, wird der Baustein in jede DSE eingefügt, ohne manuelle Selektion"
@@ -88,7 +102,7 @@ export const Snippet = ({ history, match: { params } }) => {
             <Checkbox
               label="Immer anzeigen"
               name="alwaysShow"
-              checked={values.alwaysShow}
+              checked={values.alwaysShow || false}
               onChange={handleChange}
             />
           }

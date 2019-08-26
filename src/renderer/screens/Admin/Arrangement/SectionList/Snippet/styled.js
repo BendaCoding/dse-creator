@@ -19,5 +19,5 @@ export const Link = styled.div`
 
 export const IconWrap = styled.div`
   margin: 1px 5px 0 0;
-  color: ${({ theme }) => theme.disabled};
+  color: ${({ theme }) => theme.forms.disabled};
 `;

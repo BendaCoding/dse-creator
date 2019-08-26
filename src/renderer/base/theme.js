@@ -6,5 +6,8 @@ export const theme = {
     hoverColor: '#fcfcfc'
   },
   primary: '#2185d0',
-  disabled: '#e0e1e2'
+  forms: {
+    inputBorder: '#D9D9D9',
+    disabled: '#e0e1e2'
+  }
 };
