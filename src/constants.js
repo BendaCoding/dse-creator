@@ -3,3 +3,8 @@ export const IPC_EVENTS = {
   REQUEST_STATE: 'REQUEST_STATE',
   HYDRATE_STATE: 'HYDRATE_STATE'
 };
+
+export const PLACEHOLDERS = {
+  name: '@name',
+  street: '@straße'
+};

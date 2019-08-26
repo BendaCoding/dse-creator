@@ -1,5 +1,6 @@
-import { IPC_EVENTS } from '../utils/enums';
+import { IPC_EVENTS } from '../../constants';
 import { ipcRenderer } from 'electron';
+
 /**
  * Custom middleware to persist the store upon changes
  */

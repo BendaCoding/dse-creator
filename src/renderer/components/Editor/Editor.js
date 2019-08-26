@@ -1,10 +1,17 @@
+import React from 'react';
 import { Editor as BaseEditor } from 'react-draft-wysiwyg';
-import styled from 'styled-components';
 
-export const Editor = styled(BaseEditor)`
-  .rdw-editor-main {
-    background: red;
-    font-size: 25px;
-    display: none;
-  }
-`;
+export const Editor = props => (
+  <BaseEditor
+    abc={{ a: 1 }}
+    mention={{
+      separator: ' ',
+      trigger: '@',
+      suggestions: [
+        { text: 'Name', value: 'name', url: 'apple' },
+        { text: 'Straße', value: 'straße', url: 'banana' }
+      ]
+    }}
+    {...props}
+  />
+);

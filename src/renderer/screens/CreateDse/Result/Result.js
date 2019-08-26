@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Tab } from 'semantic-ui-react';
 import { FormContext } from '@@utils/';
 import { selectors } from '@@store/arrangement';
-import { Editor } from 'react-draft-wysiwyg';
+import { Editor } from '@@components';
 import * as U from './utils';
 
 export const Result = () => {
