@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Icon, Segment } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router';
@@ -29,6 +31,14 @@ export const Snippet = ({ sectionId, id, name, index, history }) => {
       </Draggable>
     </S.Wrap>
   );
+};
+
+Snippet.propTypes = {
+  sectionId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  history: ReactRouterPropTypes.history.isRequired
 };
 
 export default withRouter(Snippet);

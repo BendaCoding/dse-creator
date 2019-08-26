@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Form, Modal, Icon, Header, Button } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { actions } from '@@store/arrangement';
@@ -35,4 +36,10 @@ export const AddSnippetModal = ({
       </Modal>
     </Form>
   );
+};
+
+AddSnippetModal.propTypes = {
+  isModalOpen: PropTypes.bool.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
+  sectionIndex: PropTypes.number.isRequired
 };

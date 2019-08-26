@@ -959,6 +959,10 @@
   version "10.14.16"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.16.tgz#4d690c96cbb7b2728afea0e260d680501b3da5cf"
 
+"@types/prop-types@^15.5.3":
+  version "15.7.1"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.1.tgz#f1a11e7babb0c3cad68100be381d1e064c68f1f6"
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
@@ -6075,6 +6079,13 @@ react-router-dom@^5.0.1:
     react-router "5.0.1"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-router-prop-types@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-router-prop-types/-/react-router-prop-types-1.0.4.tgz#74716e92d014bb51ee4376ee198f34903cf8dc1d"
+  dependencies:
+    "@types/prop-types" "^15.5.3"
+    prop-types "^15.6.1"
 
 react-router@5.0.1, react-router@^5.0.1:
   version "5.0.1"

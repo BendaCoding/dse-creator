@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { Tab } from 'semantic-ui-react';
 import filter from 'lodash/fp/filter';
 import { FormCheckbox } from '@@components';
@@ -6,7 +7,7 @@ import camelCase from 'lodash/fp/camelCase';
 
 const filterSnippets = filter(({ alwaysShow }) => !alwaysShow);
 
-export const SectionForm = ({ name, id, snippets }) => {
+export const SectionForm = ({ name, snippets }) => {
   const filteredSnippets = useMemo(() => filterSnippets(snippets), [snippets]);
 
   const sectionPropName = camelCase(name);
@@ -25,4 +26,10 @@ export const SectionForm = ({ name, id, snippets }) => {
       </Tab.Pane>
     </>
   );
+};
+
+SectionForm.propTypes = {
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  snippets: PropTypes.array.isRequired
 };

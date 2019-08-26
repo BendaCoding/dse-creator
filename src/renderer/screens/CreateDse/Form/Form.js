@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { Box, Flex } from 'rebass';
 import { Button } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
@@ -28,6 +29,10 @@ export const Form = ({ history }) => {
       </Box>
     </Flex>
   );
+};
+
+Form.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired
 };
 
 export default withRouter(Form);

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import * as S from './styled';
 import { FormContext } from '@@utils';
 import getOr from 'lodash/fp/getOr';
@@ -14,4 +15,8 @@ export const FormInput = props => {
   const value = getOr('', props.name, values);
 
   return <Input {...{ ...props, onChange: handleChange, value }} />;
+};
+
+FormInput.propTypes = {
+  name: PropTypes.string.isRequired
 };

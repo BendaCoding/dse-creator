@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Header, Icon } from 'semantic-ui-react';
 import { Flex, Box } from 'rebass';
 import { AddSnippetModal } from './AddSnippetModal';
@@ -44,4 +45,11 @@ export const Section = ({ name, snippets, id: sectionId, sectionIndex }) => {
       )}
     </Draggable>
   );
+};
+
+Section.propTypes = {
+  name: PropTypes.string.isRequired,
+  snippets: PropTypes.array.isRequired,
+  id: PropTypes.string.isRequired,
+  sectionIndex: PropTypes.number.isRequired
 };

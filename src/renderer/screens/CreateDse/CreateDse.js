@@ -6,12 +6,8 @@ import { useForm, FormContext } from '@@utils';
 import { Switch, Route } from 'react-router';
 import { Form } from './Form';
 import { Result } from './Result';
-import { withRouter } from 'react-router';
 
-console.log('ASDASD', window.React1, React);
-console.log(window.React1 === React);
-
-export const CreateDse = withRouter(({ match }) => {
+export const CreateDse = () => {
   const initialValues = useSelector(selectors.getInitialValues);
 
   const { values, handleChange } = useForm(initialValues, values => {
@@ -26,4 +22,4 @@ export const CreateDse = withRouter(({ match }) => {
       </Switch>
     </FormContext.Provider>
   );
-});
+};

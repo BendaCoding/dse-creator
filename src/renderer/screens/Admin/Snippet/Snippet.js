@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactRouterPropTypes from 'react-router-prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Form, Button, Popup } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
@@ -118,6 +119,11 @@ export const Snippet = ({ history, match: { params } }) => {
       </Form>
     </Tab.Pane>
   );
+};
+
+Snippet.propTypes = {
+  history: ReactRouterPropTypes.history.isRequired,
+  match: ReactRouterPropTypes.match.isRequired
 };
 
 export default withRouter(Snippet);
