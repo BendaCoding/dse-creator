@@ -1,9 +1,15 @@
 module.exports = {
-  /* your base configuration of choice */
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   plugins: ['react-hooks'],
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
   rules: {
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn'
+    'react-hooks/exhaustive-deps': 'warn',
+    'no-console': 'off'
   },
   parser: 'babel-eslint',
   parserOptions: {

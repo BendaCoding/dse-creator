@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder",
-    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+    "pack": "yarn compile && electron-builder",
+    "pack:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
+    "lint": "eslint src"
   },
   "build": {
     "appId": "com.stsstudios.dse-creator",
@@ -39,6 +40,7 @@
     "electron-builder": "^21.2.0",
     "electron-webpack": "^2.7.4",
     "electron-webpack-eslint": "^3.0.0",
+    "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1"
   },
   "resolutions": {
