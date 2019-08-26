@@ -8,13 +8,13 @@ import { Form } from './Form';
 import { Result } from './Result';
 import { withRouter } from 'react-router';
 
-console.log('ASDASD', window.React1 === React);
+console.log('ASDASD', window.React1, React);
+console.log(window.React1 === React);
 
 export const CreateDse = withRouter(({ match }) => {
-  const initialShit = useSelector(selectors.getInitialValues);
-  console.log(match.path);
+  const initialValues = useSelector(selectors.getInitialValues);
 
-  const { values, handleChange } = useForm(initialShit, values => {
+  const { values, handleChange } = useForm(initialValues, values => {
     console.log(values, 'submitting');
   });
 

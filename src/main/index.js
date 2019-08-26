@@ -18,7 +18,7 @@ function createMainWindow() {
     width,
     height,
     webPreferences: {
-      // nodeIntegration: false,
+      nodeIntegration: true
       // webSecurity: false,
       // preload: __dirname + '/preload.js'
     }

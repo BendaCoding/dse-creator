@@ -7,11 +7,10 @@ import { Snippet } from './Snippet';
 export const Admin = () => {
   return (
     <Container>
-      {/* <Switch>
+      <Switch>
         <Route exact path="/admin" component={Arrangement} />
         <Route path="/admin/:sectionId/:snippetId" component={Snippet} />
-      </Switch> */}
-      Admin -.-
+      </Switch>
     </Container>
   );
 };

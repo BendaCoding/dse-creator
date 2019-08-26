@@ -2,6 +2,7 @@ const path = require('path');
 
 console.log('##############################', process.env.NODE_ENV);
 module.exports = {
+  externals: ['react', 'react-dom'],
   resolve: {
     alias: {
       '@@base': path.resolve(__dirname, '../src/renderer/base/'),
