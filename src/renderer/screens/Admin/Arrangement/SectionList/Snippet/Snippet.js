@@ -4,10 +4,10 @@ import ReactRouterPropTypes from 'react-router-prop-types';
 import { Icon, Segment } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
 import { withRouter } from 'react-router';
-import { Flex } from 'rebass';
+import { Flex, Box } from 'rebass';
 import * as S from './styled';
 
-export const Snippet = ({ sectionId, id, name, index, history }) => {
+export const Snippet = ({ sectionId, id, name, index, history, defaultOn }) => {
   const onSnippetClick = () => history.push(`/admin/${sectionId}/${id}`);
 
   return (
@@ -21,9 +21,16 @@ export const Snippet = ({ sectionId, id, name, index, history }) => {
             {...{ ...draggableProps }}
           >
             <Segment attached>
-              <Flex justifyContent="space-between">
+              <Flex>
+                {defaultOn && (
+                  <S.IconWrap>
+                    <Icon name="linkify" />
+                  </S.IconWrap>
+                )}
                 <span>{name}</span>
-                <Icon name="bars" color="grey" {...dragHandleProps} />
+                <Box ml="auto">
+                  <Icon name="bars" color="grey" {...dragHandleProps} />
+                </Box>
               </Flex>
             </Segment>
           </S.Link>
@@ -38,7 +45,8 @@ Snippet.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  history: ReactRouterPropTypes.history.isRequired
+  history: ReactRouterPropTypes.history.isRequired,
+  defaultOn: PropTypes.bool.isRequired
 };
 
 export default withRouter(Snippet);

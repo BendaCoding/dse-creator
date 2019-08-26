@@ -16,3 +16,8 @@ export const Link = styled.div`
     color: ${({ theme }) => theme.primary};
   }
 `;
+
+export const IconWrap = styled.div`
+  margin: 1px 5px 0 0;
+  color: ${({ theme }) => theme.disabled};
+`;

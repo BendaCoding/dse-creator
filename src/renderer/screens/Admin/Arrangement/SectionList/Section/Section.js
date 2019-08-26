@@ -30,8 +30,8 @@ export const Section = ({ name, snippets, id: sectionId, sectionIndex }) => {
                     </Flex>
                   </Header>
 
-                  {snippets.map(({ id, name }, index) => (
-                    <Snippet key={id} {...{ name, index, id, sectionId }} />
+                  {snippets.map(({ id, ...rest }, index) => (
+                    <Snippet key={id} {...{ index, id, sectionId, ...rest }} />
                   ))}
                   {provided.placeholder}
                 </div>

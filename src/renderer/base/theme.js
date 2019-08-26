@@ -5,5 +5,6 @@ export const theme = {
     color: '#cecece',
     hoverColor: '#fcfcfc'
   },
-  primary: '#2185d0'
+  primary: '#2185d0',
+  disabled: '#e0e1e2'
 };
