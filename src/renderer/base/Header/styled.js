@@ -17,6 +17,10 @@ export const Header = styled.h1`
   line-height: ${HEADER_HEIGHT};
   color: ${({ theme }) => theme.header.color};
   margin: 0;
+
+  span {
+    font-size: 12px;
+  }
 `;
 
 export const NavLink = styled(BaseNavLink)`

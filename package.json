@@ -11,10 +11,6 @@
     "dist-win": "yarn compile && electron-builder --win --x64",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
-  "build": {
-    "appId": "com.stsstudios.dse-creator",
-    "productName": "DSE Creator"
-  },
   "dependencies": {
     "@babel/preset-react": "^7.0.0",
     "draft-js": "^0.11.0",
@@ -45,6 +41,10 @@
     "electron-webpack-eslint": "^3.0.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1"
+  },
+  "build": {
+    "appId": "com.stsstudios.dse-creator",
+    "productName": "DSE Creator"
   },
   "resolutions": {
     "upath": "^1.0.5",
