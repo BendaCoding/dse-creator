@@ -17,20 +17,24 @@ export const AddSnippetModal = ({ isModalOpen, toggleModal, sectionIndex }) => {
   };
 
   return (
-    <Form onSubmit={onAddSnippet}>
-      <Modal open={isModalOpen} onClose={toggleModal} basic size="small">
-        <Header icon="browser" content="Neue Gruppe" />
-        <Modal.Content>
+    <Modal open={isModalOpen} onClose={toggleModal} basic size="small">
+      <Header icon="browser" content="Neuer Baustein" />
+      <Modal.Content>
+        <Form onSubmit={onAddSnippet}>
           <h3>Name</h3>
-          <Input value={name} onChange={e => setName(e.target.value)} />
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="green" onClick={onAddSnippet} inverted>
-            <Icon name="checkmark" /> Add Snippet
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    </Form>
+          <Input
+            autoFocus
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+        </Form>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button color="green" onClick={onAddSnippet} inverted>
+          <Icon name="checkmark" /> Add Snippet
+        </Button>
+      </Modal.Actions>
+    </Modal>
   );
 };
 

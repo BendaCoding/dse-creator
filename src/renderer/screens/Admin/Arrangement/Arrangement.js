@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Tab } from 'semantic-ui-react';
 import { SectionList } from './SectionList';
 import { AddSectionModal } from './AddSectionModal';

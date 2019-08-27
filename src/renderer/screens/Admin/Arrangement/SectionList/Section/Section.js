@@ -59,7 +59,8 @@ export const Section = ({ name, snippets, id: sectionId, sectionIndex }) => {
               {...{
                 isModalOpen: isSectionModalOpen,
                 toggleModal: toggleSectionModal,
-                name
+                name,
+                id: sectionId
               }}
             />
           )}

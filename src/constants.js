@@ -11,5 +11,7 @@ export const PLACEHOLDERS = {
   postCode: 'PLZ',
   city: 'Stadt',
   country: 'Land',
+  phone: 'Telefon',
+  email: 'Email',
   dataProtectionOfficer: 'Datenschutzbeauftragter'
 };

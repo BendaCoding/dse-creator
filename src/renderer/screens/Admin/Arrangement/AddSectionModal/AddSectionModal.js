@@ -17,20 +17,20 @@ export const AddSectionModal = ({ isModalOpen, onCloseModal }) => {
   };
 
   return (
-    <Form onSubmit={onAddSection}>
-      <Modal open={isModalOpen} onClose={onCloseModal} basic size="small">
-        <Header icon="browser" content="Neue Sektion" />
-        <Modal.Content>
+    <Modal open={isModalOpen} onClose={onCloseModal} basic size="small">
+      <Header icon="browser" content="Neue Sektion" />
+      <Modal.Content>
+        <Form onSubmit={onAddSection}>
           <h3>Name</h3>
           <Input value={name} onChange={e => setName(e.target.value)} />
-        </Modal.Content>
-        <Modal.Actions>
-          <Button color="green" onClick={onAddSection} inverted>
-            <Icon name="checkmark" /> Sektion erstellen
-          </Button>
-        </Modal.Actions>
-      </Modal>
-    </Form>
+        </Form>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button color="green" onClick={onAddSection} inverted>
+          <Icon name="checkmark" /> Sektion erstellen
+        </Button>
+      </Modal.Actions>
+    </Modal>
   );
 };
 

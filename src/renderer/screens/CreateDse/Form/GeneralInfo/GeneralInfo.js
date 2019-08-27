@@ -18,6 +18,8 @@ export const GeneralInfo = () => (
         </Box>
       </Flex>
       <FormInput name="general.country" placeholder="Land" />
+      <FormInput name="general.phone" placeholder="Telefon" />
+      <FormInput name="general.email" placeholder="Email" />
     </Flex>
 
     <h3>Datenschutzbeauftragter</h3>

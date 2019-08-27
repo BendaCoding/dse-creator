@@ -43,7 +43,7 @@ export const SectionList = () => {
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {sections.map((section, sectionIndex) => (
-                <Section key={section.name} {...{ ...section, sectionIndex }} />
+                <Section key={section.id} {...{ ...section, sectionIndex }} />
               ))}
               {provided.placeholder}
             </div>

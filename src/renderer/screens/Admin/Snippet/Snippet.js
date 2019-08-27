@@ -69,12 +69,6 @@ export const Snippet = ({ history, match: { params } }) => {
           label="Name"
           value={values.name || ''}
         />
-        <Form.Input
-          name="title"
-          onChange={handleChange}
-          label="Titel"
-          value={values.title}
-        />
         <Editor
           label="Text"
           editorState={values.data}
