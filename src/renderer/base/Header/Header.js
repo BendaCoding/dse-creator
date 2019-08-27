@@ -2,10 +2,11 @@ import React from 'react';
 import { Icon } from 'semantic-ui-react';
 
 import * as S from './styled';
+import { version } from '../../../../package.json';
 
 export const Header = () => (
   <S.Wrap>
-    <S.Header>DSE Creator</S.Header>
+    <S.Header>DSE Creator {version}</S.Header>
     <div>
       <S.NavLink to="/admin">
         <Icon name="setting" />
