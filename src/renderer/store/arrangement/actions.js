@@ -7,6 +7,8 @@ export const removeSection = U.createAction(TYPES.REMOVE_SECTION);
 
 export const reorderSection = U.createAction(TYPES.REORDER_SECTION);
 
+export const editSection = U.createAction(TYPES.EDIT_SECTION);
+
 export const addSnippet = U.createAction(TYPES.ADD_SNIPPET);
 
 export const removeSnippet = U.createAction(TYPES.REMOVE_SNIPPET);

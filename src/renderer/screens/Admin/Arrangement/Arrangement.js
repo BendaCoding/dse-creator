@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Tab } from 'semantic-ui-react';
-import uuid from 'uuid/v4';
-import { useDispatch } from 'react-redux';
-
-import { actions } from '@@store/arrangement';
 import { SectionList } from './SectionList';
+import { AddSectionModal } from './AddSectionModal';
+import { useModal } from '@@utils';
 
 export const Arrangement = () => {
-  const dispatch = useDispatch();
+  const { isModalOpen, onOpenModal, onCloseModal } = useModal();
 
   return (
     <Tab.Pane>
@@ -17,16 +15,12 @@ export const Arrangement = () => {
         enthält beliebig viele Text Bausteine, die konditional ein oder
         ausgeschaltet werden können.
       </p>
-      <Button
-        basic
-        onClick={() =>
-          dispatch(actions.addSection({ name: 'asd', id: uuid() }))
-        }
-      >
+      <Button basic onClick={onOpenModal}>
         Sektion erstellen
       </Button>
 
       <SectionList />
+      <AddSectionModal {...{ isModalOpen, onCloseModal }} />
     </Tab.Pane>
   );
 };

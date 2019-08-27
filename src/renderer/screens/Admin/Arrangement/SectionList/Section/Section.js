@@ -1,15 +1,24 @@
-import React, { useState, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Header, Icon } from 'semantic-ui-react';
-import { Flex, Box } from 'rebass';
+import { Box } from 'rebass';
 import { AddSnippetModal } from './AddSnippetModal';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Snippet } from '../Snippet';
 import { DRAG_TYPES } from '../constants';
+import { SectionHeader } from './SectionHeader';
+import { useModal } from '@@utils';
+import { EditSectionModal } from './EditSectionModal';
 
 export const Section = ({ name, snippets, id: sectionId, sectionIndex }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const onCloseModal = () => setIsModalOpen(false);
+  const {
+    isModalOpen: isSnippetModalOpen,
+    toggleModal: toggleSnippetModal
+  } = useModal();
+
+  const {
+    isModalOpen: isSectionModalOpen,
+    toggleModal: toggleSectionModal
+  } = useModal();
 
   return (
     <Draggable draggableId={sectionId} index={sectionIndex}>
@@ -19,16 +28,14 @@ export const Section = ({ name, snippets, id: sectionId, sectionIndex }) => {
             <Droppable droppableId={sectionId} type={DRAG_TYPES.SNIPPET}>
               {provided => (
                 <div ref={provided.innerRef}>
-                  <Header as="h4" attached="top" block {...dragHandleProps}>
-                    <Flex justifyContent="space-between">
-                      <span>{name}</span>
-                      <Icon
-                        link
-                        name="add"
-                        onClick={() => setIsModalOpen(true)}
-                      />
-                    </Flex>
-                  </Header>
+                  <SectionHeader
+                    {...{
+                      name,
+                      toggleSectionModal,
+                      toggleSnippetModal,
+                      dragHandleProps
+                    }}
+                  />
 
                   {snippets.map(({ id, ...rest }, index) => (
                     <Snippet key={id} {...{ index, id, sectionId, ...rest }} />
@@ -38,8 +45,23 @@ export const Section = ({ name, snippets, id: sectionId, sectionIndex }) => {
               )}
             </Droppable>
           </Box>
-          {isModalOpen && (
-            <AddSnippetModal {...{ isModalOpen, onCloseModal, sectionIndex }} />
+          {isSnippetModalOpen && (
+            <AddSnippetModal
+              {...{
+                isModalOpen: isSnippetModalOpen,
+                toggleModal: toggleSnippetModal,
+                sectionIndex
+              }}
+            />
+          )}
+          {isSectionModalOpen && (
+            <EditSectionModal
+              {...{
+                isModalOpen: isSectionModalOpen,
+                toggleModal: toggleSectionModal,
+                name
+              }}
+            />
           )}
         </Fragment>
       )}

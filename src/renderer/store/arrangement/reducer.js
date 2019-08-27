@@ -1,24 +1,9 @@
 import * as TYPES from './actionTypes';
 import set from 'lodash/fp/set';
+import * as U from './utils';
 
 export const initialState = {
   sections: []
-};
-
-const getSectionIndexFromId = ({ sections, sectionId }) =>
-  sections.findIndex(({ id }) => id === sectionId);
-
-const getSnippetIndexFromId = ({ sections, sectionId, snippetId }) => {
-  const sectionIndex = getSectionIndexFromId({ sections, sectionId });
-  return sections[sectionIndex].snippets.findIndex(
-    ({ id }) => id === snippetId
-  );
-};
-
-const getIndexes = payload => {
-  const sectionIndex = getSectionIndexFromId(payload);
-  const snippetIndex = getSnippetIndexFromId(payload);
-  return { sectionIndex, snippetIndex };
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
@@ -30,12 +15,17 @@ export const reducer = (state = initialState, { type, payload }) => {
       };
     }
     case TYPES.REMOVE_SECTION: {
-      const id = payload;
+      const sectionId = payload;
+      const index = U.getSectionIndexFromId({
+        sections: state.sections,
+        sectionId
+      });
+
       return {
         ...state,
         sections: [
-          ...state.sections.slice(0, id),
-          ...state.sections.slice(id + 1)
+          ...state.sections.slice(0, index),
+          ...state.sections.slice(index + 1)
         ]
       };
     }
@@ -49,6 +39,22 @@ export const reducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         sections
+      };
+    }
+    case TYPES.EDIT_SECTION: {
+      const { id, ...rest } = payload;
+      const index = U.getSectionIndexFromId({
+        sections: state.sections,
+        sectionId: id
+      });
+
+      return {
+        ...state,
+        sections: [
+          ...state.sections.slice(0, index),
+          { ...state.sections[index], ...rest },
+          ...state.sections.slice(index + 1)
+        ]
       };
     }
     case TYPES.ADD_SNIPPET: {
@@ -73,7 +79,7 @@ export const reducer = (state = initialState, { type, payload }) => {
     case TYPES.REMOVE_SNIPPET: {
       const { sectionId, snippetId } = payload;
       const { sections } = state;
-      const { sectionIndex, snippetIndex } = getIndexes({
+      const { sectionIndex, snippetIndex } = U.getIndexes({
         sections,
         sectionId,
         snippetId
@@ -111,7 +117,7 @@ export const reducer = (state = initialState, { type, payload }) => {
       const { sectionId, snippetId, snippet } = payload;
       const { sections } = state;
 
-      const { sectionIndex, snippetIndex } = getIndexes({
+      const { sectionIndex, snippetIndex } = U.getIndexes({
         sections,
         sectionId,
         snippetId
