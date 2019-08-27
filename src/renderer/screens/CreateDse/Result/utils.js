@@ -21,6 +21,9 @@ const findWithRegex = (regex, contentBlock, callback) => {
 
 const replacePlaceholders = (contentState, values) => {
   let result = contentState;
+  if (!result.getBlockMap().length) {
+    return result;
+  }
 
   Object.entries(PLACEHOLDERS).forEach(([key, placeholder]) => {
     const blockMap = result.getBlockMap();

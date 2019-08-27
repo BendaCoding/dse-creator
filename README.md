@@ -1,3 +1,4 @@
-# Todos
+# DSE Creator
 
-implement mention plugin for draft-js
+Create data privacy statements on the fly
+This app doesn't come with subject specific data.

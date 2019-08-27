@@ -16,6 +16,7 @@ function createMainWindow() {
   const window = new BrowserWindow({
     width,
     height,
+    title: 'DSE Creator',
     webPreferences: {
       nodeIntegration: true
       // webSecurity: false,

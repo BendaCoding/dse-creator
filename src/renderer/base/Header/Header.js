@@ -6,7 +6,7 @@ import { version } from '../../../../package.json';
 
 export const Header = () => (
   <S.Wrap>
-    <S.Header>DSE Creator {version}</S.Header>
+    <S.Header>DSE Creator v{version}</S.Header>
     <div>
       <S.NavLink to="/admin">
         <Icon name="setting" />
