@@ -7,7 +7,7 @@ import {
   Modifier,
   ContentState
 } from 'draft-js';
-import { PLACEHOLDERS } from '../../../../constants';
+import { PLACEHOLDERS } from '@@src/constants';
 
 const findWithRegex = (regex, contentBlock, callback) => {
   const text = contentBlock.getText();
@@ -19,12 +19,16 @@ const findWithRegex = (regex, contentBlock, callback) => {
   }
 };
 
-const getSelectionsForPlaceholders = ({ blockMap }) =>
-  Object.entries(PLACEHOLDERS).reduce((acc, [key, placeholder]) => {
-    const selections = [];
+const replacePlaceholders = (contentState, values) => {
+  let result = contentState;
+
+  Object.entries(PLACEHOLDERS).forEach(([key, placeholder]) => {
+    const blockMap = result.getBlockMap();
+    const replace = getOr('', ['general', key], values);
+
     blockMap.forEach(contentBlock => {
       findWithRegex(
-        new RegExp(placeholder, 'g'),
+        new RegExp(`@${placeholder}`, 'g'),
         contentBlock,
         (start, end) => {
           const blockKey = contentBlock.getKey();
@@ -33,47 +37,27 @@ const getSelectionsForPlaceholders = ({ blockMap }) =>
             focusOffset: end
           });
 
-          selections.push(blockSelection);
+          result = Modifier.replaceText(result, blockSelection, replace);
         }
       );
     });
-    return selections.length ? [...acc, { key, selections }] : acc;
-  }, []);
+  });
+  return result;
+};
 
 const addSnippetToEditor = (editorState, raw, values) => {
   // new ContentBlocks
   let newContentState = convertFromRaw(raw);
-  let newBlockMap = newContentState.getBlockMap();
-
   // replace placeholders
-  const selectionsToReplace = getSelectionsForPlaceholders({
-    blockMap: newBlockMap
-  });
-
-  console.log(selectionsToReplace);
-  console.log(values);
-
-  selectionsToReplace.forEach(({ key, selections }) => {
-    console.log('###', key, values.general);
-    const replace = getOr('', ['general', key], values);
-    selections.forEach(selectionState => {
-      newContentState = Modifier.replaceText(
-        newContentState,
-        selectionState,
-        replace
-      );
-    });
-  });
+  newContentState = replacePlaceholders(newContentState, values);
 
   let result;
   if (!editorState) {
     result = EditorState.createWithContent(newContentState);
   } else {
-    // current
     const currentContentState = editorState.getCurrentContent();
     const currentBlockMap = currentContentState.getBlockMap();
-
-    newBlockMap = newContentState.getBlockMap();
+    const newBlockMap = newContentState.getBlockMap();
 
     // Combine
     const combinedBlockMap = currentBlockMap.concat(newBlockMap);

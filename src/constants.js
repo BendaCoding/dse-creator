@@ -5,6 +5,11 @@ export const IPC_EVENTS = {
 };
 
 export const PLACEHOLDERS = {
-  name: '@name',
-  street: '@straße'
+  productName: 'Produktname',
+  companyName: 'Firmenname',
+  street: 'Straße',
+  postCode: 'PLZ',
+  city: 'Stadt',
+  country: 'Land',
+  dataProtectionOfficer: 'Datenschutzbeauftragter'
 };

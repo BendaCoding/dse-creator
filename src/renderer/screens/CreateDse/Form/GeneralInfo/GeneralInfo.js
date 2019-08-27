@@ -6,7 +6,8 @@ export const GeneralInfo = () => (
   <>
     <h3>Auftraggeber</h3>
     <Flex flexDirection="column">
-      <FormInput name="general.name" placeholder="Name / Firma" />
+      <FormInput name="general.productName" placeholder="Produktname" />
+      <FormInput name="general.companyName" placeholder="Firmenname" />
       <FormInput name="general.street" placeholder="Straße" />
       <Flex>
         <Box width={1 / 4} mr={15}>

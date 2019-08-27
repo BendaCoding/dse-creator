@@ -6,12 +6,17 @@ import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import { selectors } from '@@store/arrangement';
+
 import { SectionForm } from './SectionForm';
 import { GeneralInfo } from './GeneralInfo';
 
 export const Form = ({ history }) => {
   const sections = useSelector(selectors.getSections);
-  const onCreate = () => history.push('/create/result');
+
+  const onCreate = () => {
+    history.push('/create/result');
+  };
+
   return (
     <Flex justifyContent="center">
       <Box width={1 / 2}>

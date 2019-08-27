@@ -1,5 +1,6 @@
 import React from 'react';
 import { Editor as BaseEditor } from 'react-draft-wysiwyg';
+import { PLACEHOLDERS } from '../../../constants';
 
 export const Editor = props => (
   <BaseEditor
@@ -7,10 +8,10 @@ export const Editor = props => (
     mention={{
       separator: ' ',
       trigger: '@',
-      suggestions: [
-        { text: 'Name', value: 'name', url: 'apple' },
-        { text: 'Straße', value: 'straße', url: 'banana' }
-      ]
+      suggestions: Object.entries(PLACEHOLDERS).map(([, value]) => ({
+        text: value,
+        value
+      }))
     }}
     {...props}
   />

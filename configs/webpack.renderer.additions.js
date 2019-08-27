@@ -8,7 +8,8 @@ module.exports = {
       '@@components': path.resolve(__dirname, '../src/renderer/components/'),
       '@@screens': path.resolve(__dirname, '../src/renderer/screens/'),
       '@@store': path.resolve(__dirname, '../src/renderer/store/'),
-      '@@utils': path.resolve(__dirname, '../src/renderer/utils/')
+      '@@utils': path.resolve(__dirname, '../src/renderer/utils/'),
+      '@@src': path.resolve(__dirname, '../src/')
     }
   },
   devServer: {

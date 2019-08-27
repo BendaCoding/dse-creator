@@ -38,7 +38,6 @@ export const Snippet = ({ history, match: { params } }) => {
     );
     history.push('/admin');
   });
-  console.log(values);
 
   const onBack = e => {
     e.preventDefault();
@@ -81,14 +80,6 @@ export const Snippet = ({ history, match: { params } }) => {
           editorState={values.data}
           onEditorStateChange={onEditorChange}
           placeholder="Was sagt dieser Baustein?"
-          mention={{
-            separator: ' ',
-            trigger: '@',
-            suggestions: [
-              { text: 'Name', value: 'name', url: 'apple' },
-              { text: 'Straße', value: 'straße', url: 'banana' }
-            ]
-          }}
         />
         <Popup
           content="Wenn aktiv, wird der Baustein in jede DSE eingefügt, ohne manuelle Selektion"
